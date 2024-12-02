@@ -2723,7 +2723,7 @@
 <body>
   <div class="container">
     <div class="header">
-      โรงตีเหล็ก ◈ STAR FORCE
+      Forge ◈ STAR FORCE
     </div>
     
     <div class="content">
@@ -2742,16 +2742,16 @@
       
       <div class="stats">
         <div class="stat-row">
-          สำเร็จ <span class="success-rate">100.00%</span>
+          Success 100.00%
         </div>
         <div class="stat-row">
-          คงเดิม 0.00%
+          Maintain 0.00%
         </div>
         <div class="stat-row">
-          ถูกลดลง 0.00%
+          Degrade 0.00%
         </div>
         <div class="stat-row">
-          ถูกทำลาย 0.00%
+          Break 0.00%
         </div>
       </div>
       
@@ -2792,7 +2792,7 @@
           <div class="coin-icon"></div>
           5,000
         </div>
-        <button>ตีบวก</button>
+        <button>Enhancement</button>
         <button class="auto-forge-btn with-text" onclick="showAutoForgePopup()">
           <i class="fas fa-cog"></i>
           <span>Auto Forge Setting</span>
@@ -2803,12 +2803,12 @@
 
   <div class="forge-animation">
     <i class="fas fa-hammer forge-icon"></i>
-    <div class="forge-text">กำลังตีบวก...</div>
+    <div class="forge-text">Enhancement...</div>
   </div>
 
   <div class="overlay"></div>
   <div class="result-popup">
-    <div class="title">กวามสำเร็จในการเสริมลัง</div>
+    <div class="title">Enhancement Success</div>
     
     <div class="result-item">
       <img src="https://placehold.jp/64x64.png" alt="Jaihin Siege Gun">
@@ -2821,7 +2821,7 @@
       <span class="new-level">+1</span>
     </div>
     
-    <button onclick="closePopup()">ยืนยัน</button>
+    <button onclick="closePopup()">Confirm</button>
   </div>
 
   <div class="star-catch-popup">
@@ -2830,49 +2830,49 @@
       <div class="target-zone"></div>
       <div class="moving-star">★</div>
     </div>
-    <button class="stop-btn">หยุด!</button>
+    <button class="stop-btn">Stop!</button>
   </div>
 
   <div class="star-catch-success">
     <div class="star-icon">★</div>
-    <div class="success-text">Star Catch สำเร็จ!</div>
+    <div class="success-text">Star Catch Success!</div>
   </div>
 
   <div class="history-container">
     <div class="history-header">
-      <span>ประวัติการตีบวก</span>
+      <span>History</span>
       <button class="clear-history-btn" onclick="clearHistory()">
-        <i class="fas fa-trash-alt"></i>เคลียร์
+        <i class="fas fa-trash-alt"></i>Clear
       </button>
     </div>
     <div class="history-stats">
       <div class="history-stats-row">
         <div class="stat-item total">
-          <div class="stat-label">จำนวนครั้ง</div>
+          <div class="stat-label">Count</div>
           <div class="stat-value">0</div>
         </div>
       </div>
       <div class="history-stats-row">
         <div class="stat-item success">
-          <div class="stat-label">สำเร็จ</div>
+          <div class="stat-label">Success</div>
           <div class="stat-value">0</div>
         </div>
         <div class="stat-item maintain">
-          <div class="stat-label">คงเดิม</div>
+          <div class="stat-label">Maintain</div>
           <div class="stat-value">0</div>
         </div>
         <div class="stat-item fail">
-          <div class="stat-label">ลดลง</div>
+          <div class="stat-label">Degrade</div>
           <div class="stat-value">0</div>
         </div>
         <div class="stat-item break">
-          <div class="stat-label">แตกหัก</div>
+          <div class="stat-label">Break</div>
           <div class="stat-value">0</div>
         </div>
       </div>
       <div class="history-stats-row">
         <div class="stat-item cost">
-          <div class="stat-label">ค่าใช้จ่ายทั้งหมด</div>
+          <div class="stat-label">Total Cost</div>
           <div class="stat-value">0</div>
         </div>
       </div>
@@ -2887,10 +2887,10 @@
       <img src="https://dszw1qtcnsa5e.cloudfront.net/community/20230808/ed0448ef-cd63-4664-9785-7e12b0e694d7/image2023080811050810.png" alt="Lucky Day Scroll">
     </div>
     <h3>Lucky Day Scroll</h3>
-    <input type="number" id="luckyDayInput" min="1" max="100" placeholder="เพิ่มโอกาสสำเร็จ (%)">
+    <input type="number" id="luckyDayInput" min="1" max="100" placeholder="Increase success rate (%)">
     <div class="buttons">
-      <button class="cancel" onclick="closeScrollPopup('luckyDayPopup')">ยกเลิก</button>
-      <button onclick="applyLuckyDay()">ยืนยัน</button>
+      <button class="cancel" onclick="closeScrollPopup('luckyDayPopup')">Cancel</button>
+      <button onclick="applyLuckyDay()">Confirm</button>
     </div>
   </div>
 
@@ -2901,8 +2901,8 @@
     <h3>Enhanced Meso Discount</h3>
     <input type="number" id="mesoDiscountInput" min="0" placeholder="Amount meso">
     <div class="buttons">
-      <button class="cancel" onclick="closeScrollPopup('mesoDiscountPopup')">ยกเลิก</button>
-      <button onclick="applyMesoDiscount()">ยืนยัน</button>
+      <button class="cancel" onclick="closeScrollPopup('mesoDiscountPopup')">Cancel</button>
+      <button onclick="applyMesoDiscount()">Confirm</button>
     </div>
   </div>
 
@@ -2924,23 +2924,23 @@
 
       <div class="setting-group">
         <div class="setting-row">
-          <label>เป้าหมาย Star Force</label>
+          <label>Target Star Force</label>
           <input type="number" id="targetSFInput" min="1" max="30" value="10">
         </div>
       </div>
       
       <div class="setting-group">
         <div class="setting-row">
-          <label>โหมดการตีบวก</label>
+          <label>Forge Mode</label>
           <div class="mode-select">
             <label>
               <input type="radio" name="forgeMode" value="target" checked>
-              ตีจนถึงเป้าหมาย
+              Target
             </label>
             <label>
               <input type="radio" name="forgeMode" value="count">
-              ตีตามจำนวนครั้ง
-              <input type="number" id="forgeCountInput" min="1" placeholder="จำนวน" disabled>
+              Count
+              <input type="number" id="forgeCountInput" min="1" placeholder="Count" disabled>
             </label>
           </div>
         </div>
@@ -2948,7 +2948,7 @@
       
       <div class="setting-group">
         <div class="setting-row">
-          <label>Scroll ที่จะใช้</label>
+          <label>Scroll to use</label>
           <div class="scroll-select">
             <label>
               <input type="checkbox" id="autoLuckyDay">
@@ -2976,10 +2976,10 @@
     <div class="auto-forge-popup-footer">
       <div class="buttons">
         <button class="cancel" onclick="closeScrollPopup('autoForgePopup')">
-          <i class="fas fa-times"></i> ยกเลิก
+          <i class="fas fa-times"></i> Cancel
         </button>
         <button class="start" onclick="startAutoForge()">
-          <i class="fas fa-play"></i> เริ่มต้น
+          <i class="fas fa-play"></i> Start
         </button>
       </div>
     </div>
@@ -3021,7 +3021,7 @@
     
     statsSection.innerHTML = `
       <div class="stat-row">
-        สำเร็จ <span class="success-rate">
+        Success <span class="success-rate">
           ${successRate.toFixed(2)}%
           ${isStarCatchEnabled ? 
             '<span class="star-catch-bonus">(Star Catch +5%)</span>' : 
@@ -3032,13 +3032,13 @@
         </span>
       </div>
       <div class="stat-row">
-        คงเดิม ${maintainRate.toFixed(2)}%
+        Maintain ${maintainRate.toFixed(2)}%
       </div>
       <div class="stat-row">
-        ถูกลดลง ${degradeRate.toFixed(2)}%
+        Degrade ${degradeRate.toFixed(2)}%
       </div>
       <div class="stat-row">
-        ถูกทำลาย ${starforce.shieldingWardActive ? '0.00' : breakRate.toFixed(2)}%
+        Break ${starforce.shieldingWardActive ? '0.00' : breakRate.toFixed(2)}%
       </div>
     `;
   }
@@ -3604,7 +3604,7 @@
 
   // แก้��ขฟัง��์ชัน clearHistory
   function clearHistory() {
-    if (confirm('ต้องการเคลียร์ประวัติการตีบวกทั้งหมดหรือไม่?')) {
+    if (confirm('Do you want to clear all forge history?')) {
       forgeHistory = [];
       forgeStats = {
         total: 0,

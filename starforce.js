@@ -91,25 +91,25 @@ class StarForceSystem {
       return {
         success: true,
         newSF: currentSF + 1,
-        message: 'เสริมพลังสำเร็จ'
+        message: 'Enhancement Success'
       };
     } else if (normalizedRandom <= successRate + maintainRate) {
       return {
         success: false,
         newSF: currentSF,
-        message: 'คงสภาพเดิม'
+        message: 'Maintain'
       };
     } else if (normalizedRandom <= successRate + maintainRate + degradeRate) {
       return {
         success: false,
         newSF: currentSF - 1,
-        message: 'ลดระดับ'
+        message: 'Degrade'
       };
     } else {
       return {
         success: false,
         newSF: currentSF,
-        message: 'อุปกรณ์แตกหัก',
+        message: 'Break',
         broken: true
       };
     }
