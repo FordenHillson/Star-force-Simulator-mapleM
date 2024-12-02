@@ -1,0 +1,2127 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body {
+    background: #1a1f2e;
+    color: #fff;
+    font-family: Arial, sans-serif;
+  }
+
+  .container {
+    max-width: 500px;
+    margin: 20px auto;
+    background: #2a3142;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    border: 1px solid #3d465a;
+  }
+  
+  .header {
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: bold;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #3d465a;
+    margin-bottom: 20px;
+    color: #a7b7d4;
+  }
+  
+  .item-section {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+    background: #232836;
+    padding: 12px;
+    border-radius: 6px;
+    flex-direction: column;
+  }
+  
+  .item-icon {
+    position: relative;
+  }
+  
+  .item-icon img {
+    width: 64px;
+    height: 64px;
+    border: 1px solid #3d465a;
+    border-radius: 4px;
+  }
+  
+  .star-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: #232836;
+    border: 1px solid #3d465a;
+    border-radius: 4px;
+    padding: 2px 4px;
+    font-size: 0.75rem;
+    color: #ffd700;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
+  
+  .star-badge::before {
+    content: "★";
+    color: #ffd700;
+  }
+  
+  .upgrade-arrow {
+    margin: auto;
+    color: #8b95a8;
+  }
+  
+  .upgrade-arrow [style="color: #e74c3c"] {
+    color: #4cc7f4;
+    font-weight: bold;
+  }
+  
+  .stats {
+    background: #232836;
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    border: 1px solid #3d465a;
+  }
+  
+  .stat-row {
+    margin: 6px 0;
+    color: #a7b7d4;
+  }
+  
+  .success-rate {
+    color: #4cc7f4;
+  }
+  
+  .scrolls-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin: 20px 0;
+  }
+  
+  .scroll-item {
+    background: #232836;
+    padding: 8px;
+    border-radius: 4px;
+    text-align: center;
+    border: 1px solid #3d465a;
+  }
+  
+  .scroll-item:hover {
+    background: #2c3242;
+    border-color: #4cc7f4;
+  }
+  
+  .scroll-item img {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 4px;
+    border-radius: 4px;
+  }
+  
+  .scroll-name {
+    font-size: 0.875rem;
+    color: #a7b7d4;
+  }
+  
+  .checkbox-container {
+    margin: 20px 0;
+    color: #a7b7d4;
+  }
+  
+  .cost-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #3d465a;
+  }
+  
+  .coin-amount {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #ffd700;
+  }
+  
+  .coin-icon {
+    width: 24px;
+    height: 24px;
+    background: #ffd700;
+    border-radius: 50%;
+  }
+  
+  button {
+    background: #4cc7f4;
+    color: white;
+    padding: 8px 24px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  }
+  
+  button:hover {
+    background: #3db6e3;
+  }
+
+  input[type="checkbox"] {
+    accent-color: #4cc7f4;
+  }
+
+  .forge-animation {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    z-index: 1001;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 30px 40px;
+    border-radius: 8px;
+    display: none;
+    opacity: 0;
+    transition: all 0.3s ease;
+    pointer-events: none;
+    text-align: center;
+    min-width: 200px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(76, 199, 244, 0.3);
+  }
+
+  .forge-animation.show {
+    display: flex;
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    animation: popupShake 1s infinite;
+  }
+
+  .forge-animation .forge-icon {
+    font-size: 48px;
+    color: #4cc7f4;
+    animation: hammer 1s infinite;
+    margin-bottom: 15px;
+  }
+
+  .forge-animation .forge-text {
+    color: #4cc7f4;
+    font-size: 16px;
+    font-weight: 500;
+    margin: 0;
+  }
+
+  @keyframes hammer {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(-30deg); }
+    50% { transform: rotate(0deg); }
+    75% { transform: rotate(-30deg); }
+    100% { transform: rotate(0deg); }
+  }
+
+  @keyframes popupShake {
+    0% { transform: translate(-50%, -50%); }
+    25% { transform: translate(-50%, -48%); }
+    50% { transform: translate(-50%, -50%); }
+    75% { transform: translate(-50%, -48%); }
+    100% { transform: translate(-50%, -50%); }
+  }
+
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: opacity 0.3s ease;
+  }
+
+  .result-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    padding: 30px 40px;
+    border-radius: 12px;
+    display: none;
+    opacity: 0;
+    transition: all 0.3s ease;
+    text-align: center;
+    min-width: 200px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .result-popup.show {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  .result-popup .title {
+    font-size: 1.25rem;
+    color: #4cc7f4;
+    margin-bottom: 16px;
+  }
+
+  .result-popup button {
+    position: relative;
+    z-index: 2;
+    margin-top: 16px;
+  }
+
+  .result-item {
+    position: relative;
+    width: 64px;
+    height: 64px;
+    margin: 20px auto;
+  }
+
+  .result-item img {
+    width: 100%;
+    height: 100%;
+    border: 1px solid #3d465a;
+    border-radius: 4px;
+  }
+
+  .upgrade-result {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 16px 0;
+    color: #a7b7d4;
+  }
+
+  .upgrade-result .arrow {
+    color: #8b95a8;
+  }
+
+  .upgrade-result .new-level {
+    color: #4cc7f4;
+  }
+
+  .success-effect {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .success-effect::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0;
+    height: 0;
+    background: rgba(76, 199, 244, 0.2);
+    border-radius: 50%;
+    animation: successRipple 0.6s ease-out;
+  }
+
+  @keyframes successRipple {
+    0% {
+      width: 0;
+      height: 0;
+      opacity: 1;
+    }
+    100% {
+      width: 500px;
+      height: 500px;
+      opacity: 0;
+    }
+  }
+
+  .fail-effect {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(231, 76, 60, 0.15);
+    pointer-events: none;
+    z-index: 1;
+    animation: failPulse 0.8s ease-out;
+  }
+
+  @keyframes failPulse {
+    0% {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.02);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(1);
+    }
+  }
+
+  .break-effect {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    animation: breakFlash 0.8s ease-in-out;
+  }
+
+  @keyframes breakFlash {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+  }
+
+  .result-popup .title,
+  .result-popup .result-item,
+  .result-popup .upgrade-result {
+    position: relative;
+    z-index: 2;
+  }
+
+  .cost-option {
+    margin: 10px 0;
+    color: #a7b7d4;
+  }
+
+  .checkbox-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+    user-select: none;
+  }
+
+  .checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+
+  .checkmark {
+    position: relative;
+    height: 18px;
+    width: 18px;
+    background-color: #2a3142;
+    border: 2px solid #4cc7f4;
+    border-radius: 4px;
+    margin-right: 8px;
+  }
+
+  .checkbox-container:hover input ~ .checkmark {
+    background-color: #3d465a;
+  }
+
+  .checkbox-container input:checked ~ .checkmark {
+    background-color: #4cc7f4;
+  }
+
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+
+  .checkbox-container input:checked ~ .checkmark:after {
+    display: block;
+  }
+
+  .checkbox-container .checkmark:after {
+    left: 5px;
+    top: 2px;
+    width: 4px;
+    height: 8px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+
+  @keyframes costUpdate {
+    0% {
+      transform: scale(1.1);
+      color: #4cc7f4;
+    }
+    100% {
+      transform: scale(1);
+      color: inherit;
+    }
+  }
+
+  .options-container {
+    display: flex;
+    gap: 16px;
+    margin: 10px 0;
+    padding: 12px;
+    background: #232836;
+    border-radius: 6px;
+  }
+
+  .checkbox-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+    user-select: none;
+  }
+
+  .checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+
+  .checkmark {
+    position: relative;
+    height: 18px;
+    width: 18px;
+    background-color: #2a3142;
+    border: 2px solid #4cc7f4;
+    border-radius: 4px;
+    margin-right: 8px;
+  }
+
+  .checkbox-container:hover input ~ .checkmark {
+    background-color: #3d465a;
+  }
+
+  .checkbox-container input:checked ~ .checkmark {
+    background-color: #4cc7f4;
+  }
+
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+
+  .checkbox-container input:checked ~ .checkmark:after {
+    display: block;
+  }
+
+  .checkbox-container .checkmark:after {
+    left: 5px;
+    top: 2px;
+    width: 4px;
+    height: 8px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+
+  .star-catch-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #2a3142;
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    border: 1px solid #3d465a;
+    z-index: 1001;
+    min-width: 300px;
+    text-align: center;
+    display: none;
+  }
+
+  .star-catch-popup .title {
+    font-size: 1.25rem;
+    color: #4cc7f4;
+    margin-bottom: 16px;
+  }
+
+  .game-container {
+    position: relative;
+    height: 60px;
+    background: #232836;
+    border-radius: 4px;
+    margin: 20px 0;
+    overflow: hidden;
+  }
+
+  .target-zone {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 100%;
+    background: rgba(76, 199, 244, 0.2);
+    border-left: 2px solid #4cc7f4;
+    border-right: 2px solid #4cc7f4;
+  }
+
+  .moving-star {
+    position: absolute;
+    font-size: 48px;
+    color: #ffd700;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: left 0.1s linear;
+  }
+
+  .stop-btn {
+    background: #4cc7f4;
+    color: white;
+    padding: 8px 24px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  .stop-btn:hover {
+    background: #3db6e3;
+  }
+
+  .difficulty-display {
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    color: #4cc7f4;
+    white-space: nowrap;
+  }
+
+  .target-zone {
+    transition: width 0.3s ease;
+  }
+
+  .moving-star {
+    text-shadow: 0 0 10px #ffd700;
+  }
+
+  .catch-result {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+    font-weight: bold;
+    text-shadow: 0 0 10px currentColor;
+    animation: fadeInOut 1s ease forwards;
+  }
+
+  @keyframes fadeInOut {
+    0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+    10% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+    90% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+  }
+
+  .star-catch-result-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    z-index: 1002;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 40px;
+    border-radius: 12px;
+    text-align: center;
+    opacity: 0;
+    transition: all 0.3s ease;
+  }
+
+  .star-catch-result-popup.show {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  .star-catch-result-popup .big-star {
+    font-size: 48px;
+    color: #ffd700;
+    text-shadow: 0 0 15px #ffd700;
+    margin-bottom: 20px;
+    animation: starShake 1.5s ease-in-out;
+  }
+
+  .star-catch-result-popup .catch-result {
+    font-size: 18px;
+    font-weight: bold;
+    text-shadow: 0 0 10px currentColor;
+  }
+
+  .star-catch-result-popup .catch-result.success {
+    color: #4cc7f4;
+  }
+
+  .star-catch-result-popup .catch-result.fail {
+    color: #e74c3c;
+  }
+
+  @keyframes starShake {
+    0% {
+      transform: scale(0.5);
+      opacity: 0;
+    }
+    20% {
+      transform: scale(2);
+      opacity: 1;
+    }
+    30% { transform: rotate(-15deg) scale(2); }
+    40% { transform: rotate(15deg) scale(2); }
+    50% { transform: rotate(-15deg) scale(2); }
+    60% { transform: rotate(15deg) scale(2); }
+    70% { transform: rotate(-15deg) scale(2); }
+    80% {
+      transform: rotate(0) scale(2);
+      opacity: 1;
+      color: #ffd700;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 0.8;
+    }
+  }
+
+  /* CSS สำหรับ Star Catch Success Popup */
+  .star-catch-success {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    padding: 30px 40px;
+    border-radius: 12px;
+    display: none;
+    opacity: 0;
+    transition: all 0.3s ease;
+    text-align: center;
+    min-width: 200px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .star-catch-success.show {
+    display: flex;
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  .star-catch-success .star-icon {
+    font-size: 48px;
+    color: #ffd700;
+    margin-bottom: 15px;
+    animation: starPulse 1.5s ease-in-out infinite;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.8),
+                 0 0 20px rgba(255, 215, 0, 0.4);
+  }
+
+  .star-catch-success .success-text {
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 500;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  @keyframes starPulse {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.3);
+      opacity: 0.8;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  .star-catch-bonus {
+    color: #ffd700;
+    font-size: 0.9em;
+    margin-left: 5px;
+    opacity: 0;
+    animation: fadeIn 0.3s forwards;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* เพิ่ม CSS สำหรับ effect คงสภาพเดิม */
+  .maintain-effect {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    background: rgba(255, 152, 0, 0.15);
+    animation: maintainGlow 0.8s ease-out;
+  }
+
+  @keyframes maintainGlow {
+    0% {
+      box-shadow: inset 0 0 0 2px rgba(255, 152, 0, 0);
+      transform: scale(0.95);
+    }
+    50% {
+      box-shadow: inset 0 0 20px 2px rgba(255, 152, 0, 0.3);
+      transform: scale(1.02);
+    }
+    100% {
+      box-shadow: inset 0 0 0 2px rgba(255, 152, 0, 0);
+      transform: scale(1);
+    }
+  }
+
+  .history-container {
+    max-width: 500px;
+    margin: 20px auto;
+    background: #2a3142;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    border: 1px solid #3d465a;
+  }
+
+  .history-header {
+    font-size: 1.1rem;
+    color: #a7b7d4;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #3d465a;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .clear-history-btn {
+    background: transparent;
+    border: 1px solid #3d465a;
+    color: #a7b7d4;
+    padding: 4px 8px;
+    font-size: 0.8rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .clear-history-btn:hover {
+    background: rgba(231, 76, 60, 0.1);
+    border-color: #e74c3c;
+    color: #e74c3c;
+  }
+
+  .clear-history-btn i {
+    margin-right: 4px;
+  }
+
+  .history-list {
+    max-height: 300px;
+    overflow-y: auto;
+  }
+
+  .history-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #3d465a;
+    gap: 10px;
+  }
+
+  .history-item:last-child {
+    border-bottom: none;
+  }
+
+  .history-result {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .history-stars {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: #a7b7d4;
+  }
+
+  .history-arrow {
+    color: #8b95a8;
+  }
+
+  .history-status {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.9em;
+  }
+
+  .history-status.success {
+    background: rgba(76, 199, 244, 0.1);
+    color: #4cc7f4;
+  }
+
+  .history-status.fail {
+    background: rgba(231, 76, 60, 0.1);
+    color: #e74c3c;
+  }
+
+  .history-status.maintain {
+    background: rgba(255, 152, 0, 0.1);
+    color: #ff9800;
+  }
+
+  .history-status.break {
+    background: rgba(156, 39, 176, 0.1);
+    color: #9c27b0;
+  }
+
+  .history-timestamp {
+    font-size: 0.8em;
+    color: #8b95a8;
+  }
+
+  /* เพิ่ม scrollbar style */
+  .history-list::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .history-list::-webkit-scrollbar-track {
+    background: #232836;
+    border-radius: 4px;
+  }
+
+  .history-list::-webkit-scrollbar-thumb {
+    background: #3d465a;
+    border-radius: 4px;
+  }
+
+  .history-list::-webkit-scrollbar-thumb:hover {
+    background: #4c5671;
+  }
+
+  .history-star-catch {
+    color: #ffd700;
+    font-size: 0.9em;
+    margin-left: 4px;
+    text-shadow: 0 0 4px rgba(255, 215, 0, 0.5);
+    animation: starTwinkle 1.5s infinite;
+  }
+
+  @keyframes starTwinkle {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
+
+  .scroll-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #2a3142;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #3d465a;
+    z-index: 1002;
+    display: none;
+    width: 300px;
+    text-align: center;
+  }
+
+  .scroll-popup.show {
+    display: block;
+  }
+
+  .scroll-popup .scroll-icon {
+    width: 48px;
+    height: 48px;
+    margin: -44px auto 10px;
+    background: #2a3142;
+    border: 1px solid #3d465a;
+    border-radius: 8px;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .scroll-popup .scroll-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .scroll-popup h3 {
+    color: #a7b7d4;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+  }
+
+  .scroll-popup input {
+    background: #232836;
+    border: 1px solid #3d465a;
+    color: #fff;
+    padding: 8px;
+    border-radius: 4px;
+    width: 100%;
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 1.1rem;
+  }
+
+  .scroll-popup input::placeholder {
+    color: #8b95a8;
+    font-size: 0.9rem;
+  }
+
+  .scroll-popup .buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 20px;
+  }
+
+  .scroll-popup button {
+    padding: 6px 12px;
+    min-width: 80px;
+  }
+
+  .scroll-item {
+    cursor: pointer;
+    position: relative;
+  }
+
+  .scroll-item.active {
+    border-color: #4cc7f4;
+    background: rgba(76, 199, 244, 0.1);
+  }
+
+  .scroll-item.active::after {
+    content: '✓';
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    color: #4cc7f4;
+    font-weight: bold;
+  }
+
+  .history-stats {
+    background: #232836;
+    border-radius: 6px;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #3d465a;
+  }
+
+  .history-stats-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .history-stats-row:last-child {
+    margin-bottom: 0;
+  }
+
+  .stat-item {
+    flex: 1;
+    text-align: center;
+    padding: 8px;
+    border-radius: 4px;
+    background: rgba(42, 49, 66, 0.5);
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+    color: #a7b7d4;
+    margin-bottom: 4px;
+  }
+
+  .stat-value {
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+
+  .stat-item.success .stat-value { color: #4cc7f4; }
+  .stat-item.maintain .stat-value { color: #ff9800; }
+  .stat-item.fail .stat-value { color: #e74c3c; }
+  .stat-item.break .stat-value { color: #9c27b0; }
+  .stat-item.cost .stat-value { color: #ffd700; }
+  .stat-item.total .stat-value { color: #a7b7d4; }
+
+  .history-scrolls {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-left: 8px;
+  }
+
+  .history-scrolls img {
+    width: 16px;
+    height: 16px;
+    border-radius: 2px;
+    border: 1px solid #3d465a;
+    padding: 1px;
+    background: rgba(42, 49, 66, 0.5);
+  }
+
+  .history-scrolls img:hover {
+    transform: scale(1.2);
+    border-color: #4cc7f4;
+    z-index: 1;
+  }
+
+  .original-cost {
+    text-decoration: line-through;
+    color: #8b95a8;
+    margin-right: 8px;
+    font-size: 0.9em;
+  }
+
+  .discounted-cost {
+    color: #4cc7f4;
+  }
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="starforce.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      โรงตีเหล็ก ◈ STAR FORCE
+    </div>
+    
+    <div class="content">
+      <div class="item-section">
+        <div class="item-icon">
+          <img src="https://placehold.jp/64x64.png" alt="Briser Hammer">
+          <div class="star-badge">0</div>
+        </div>
+        <div>
+          Item
+        </div>
+        <div class="upgrade-arrow">
+          +0 ⟫ <span style="color: #e74c3c">+1</span>
+        </div>
+      </div>
+      
+      <div class="stats">
+        <div class="stat-row">
+          สำเร็จ <span class="success-rate">100.00%</span>
+        </div>
+        <div class="stat-row">
+          คงเดิม 0.00%
+        </div>
+        <div class="stat-row">
+          ถูกลดลง 0.00%
+        </div>
+        <div class="stat-row">
+          ถูกทำลาย 0.00%
+        </div>
+      </div>
+      
+      <div class="scrolls-grid">
+        <div class="scroll-item">
+          <img src="https://dszw1qtcnsa5e.cloudfront.net/community/20230808/ed0448ef-cd63-4664-9785-7e12b0e694d7/image2023080811050810.png" alt="Lucky Day Scroll">
+          <div class="scroll-name">Lucky Day Scroll</div>
+        </div>
+        <div class="scroll-item">
+          <img src="https://grandislibrary.com/images/items/shield-scroll.png" alt="Shield Scroll">
+          <div class="scroll-name">Shield Scroll</div>
+        </div>
+        <div class="scroll-item">
+          <img src="https://grandislibrary.com/images/items/protection-scroll.png" alt="Shielding Ward">
+          <div class="scroll-name">Shielding Ward</div>
+        </div>
+        <div class="scroll-item">
+          <img src="Enhanced Meso Discount.png" alt="Enhanced Meso Discount">
+          <div class="scroll-name">Enhanced Meso Discount</div>
+        </div>
+      </div>
+      
+      <div class="options-container">
+        <label class="checkbox-container">
+          <input type="checkbox" id="starCatchToggle">
+          <span class="checkmark"></span>
+          Star Catch
+        </label>
+        <label class="checkbox-container">
+          <input type="checkbox" id="topBottomToggle">
+          <span class="checkmark"></span>
+          Top/Bottom
+        </label>
+      </div>
+      
+      <div class="cost-section">
+        <div class="coin-amount">
+          <div class="coin-icon"></div>
+          5,000
+        </div>
+        <button>ตีวก</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="forge-animation">
+    <i class="fas fa-hammer forge-icon"></i>
+    <div class="forge-text">กำลังตีบวก...</div>
+  </div>
+
+  <div class="overlay"></div>
+  <div class="result-popup">
+    <div class="title">กวามสำเร็จในการเสริมลัง</div>
+    
+    <div class="result-item">
+      <img src="https://placehold.jp/64x64.png" alt="Jaihin Siege Gun">
+      <div class="star-badge">1</div>
+    </div>
+    
+    <div class="upgrade-result">
+      <span>+0</span>
+      <span class="arrow">⟫</span>
+      <span class="new-level">+1</span>
+    </div>
+    
+    <button onclick="closePopup()">ยืนยัน</button>
+  </div>
+
+  <div class="star-catch-popup">
+    <div class="title">Star Catch</div>
+    <div class="game-container">
+      <div class="target-zone"></div>
+      <div class="moving-star">★</div>
+    </div>
+    <button class="stop-btn">หยุด!</button>
+  </div>
+
+  <div class="star-catch-success">
+    <div class="star-icon">★</div>
+    <div class="success-text">Star Catch สำเร็จ!</div>
+  </div>
+
+  <div class="history-container">
+    <div class="history-header">
+      <span>ประวัติการตีบวก</span>
+      <button class="clear-history-btn" onclick="clearHistory()">
+        <i class="fas fa-trash-alt"></i>เคลียร์
+      </button>
+    </div>
+    <div class="history-stats">
+      <div class="history-stats-row">
+        <div class="stat-item total">
+          <div class="stat-label">จำนวนครั้ง</div>
+          <div class="stat-value">0</div>
+        </div>
+      </div>
+      <div class="history-stats-row">
+        <div class="stat-item success">
+          <div class="stat-label">สำเร็จ</div>
+          <div class="stat-value">0</div>
+        </div>
+        <div class="stat-item maintain">
+          <div class="stat-label">คงเดิม</div>
+          <div class="stat-value">0</div>
+        </div>
+        <div class="stat-item fail">
+          <div class="stat-label">ลดลง</div>
+          <div class="stat-value">0</div>
+        </div>
+        <div class="stat-item break">
+          <div class="stat-label">แตกหัก</div>
+          <div class="stat-value">0</div>
+        </div>
+      </div>
+      <div class="history-stats-row">
+        <div class="stat-item cost">
+          <div class="stat-label">ค่าใช้จ่ายทั้งหมด</div>
+          <div class="stat-value">0</div>
+        </div>
+      </div>
+    </div>
+    <div class="history-list">
+      <!-- ประวัติจะถูกเพิ่มที่นี่ด้วย JavaScript -->
+    </div>
+  </div>
+
+  <div class="scroll-popup" id="luckyDayPopup">
+    <div class="scroll-icon">
+      <img src="https://dszw1qtcnsa5e.cloudfront.net/community/20230808/ed0448ef-cd63-4664-9785-7e12b0e694d7/image2023080811050810.png" alt="Lucky Day Scroll">
+    </div>
+    <h3>Lucky Day Scroll</h3>
+    <input type="number" id="luckyDayInput" min="1" max="100" placeholder="เพิ่มโอกาสสำเร็จ (%)">
+    <div class="buttons">
+      <button class="cancel" onclick="closeScrollPopup('luckyDayPopup')">ยกเลิก</button>
+      <button onclick="applyLuckyDay()">ยืนยัน</button>
+    </div>
+  </div>
+
+  <div class="scroll-popup" id="mesoDiscountPopup">
+    <div class="scroll-icon">
+      <img src="Enhanced Meso Discount.png" alt="Enhanced Meso Discount">
+    </div>
+    <h3>Enhanced Meso Discount</h3>
+    <input type="number" id="mesoDiscountInput" min="0" placeholder="ลดค่าใช้จ่าย">
+    <div class="buttons">
+      <button class="cancel" onclick="closeScrollPopup('mesoDiscountPopup')">ยกเลิก</button>
+      <button onclick="applyMesoDiscount()">ยืนยัน</button>
+    </div>
+  </div>
+
+  <script>
+  const forgeBtn = document.querySelector('button');
+  const forgeAnimation = document.querySelector('.forge-animation');
+  const overlay = document.querySelector('.overlay');
+  const resultPopup = document.querySelector('.result-popup');
+  const starBadge = document.querySelector('.star-badge');
+  const upgradeArrow = document.querySelector('.upgrade-arrow');
+  const statsSection = document.querySelector('.stats');
+
+  // สร้าง instance ขลังจากโหลด StarForceSystem แล้ว
+  const starforce = new StarForceSystem();
+  let currentSF = 0;
+
+  // อัพเดทการแสดงผล stats
+  function updateStats(sf) {
+    const data = starforce.sfData[sf];
+    const isStarCatchEnabled = document.getElementById('starCatchToggle').checked;
+    
+    let successRate = data.success + (starforce.starCatchBonus ? 5 : 0) + starforce.luckyDayBonus;
+    let degradeRate = starforce.shieldScrollActive ? 0 : data.degrade;
+    let breakRate = starforce.shieldingWardActive ? 0 : data.break;
+    let maintainRate = data.maintain;
+    
+    if (starforce.shieldScrollActive) {
+      maintainRate += degradeRate;
+    }
+    if (starforce.shieldingWardActive) {
+      maintainRate += breakRate;
+    }
+    
+    statsSection.innerHTML = `
+      <div class="stat-row">
+        สำเร็จ <span class="success-rate">
+          ${successRate.toFixed(2)}%
+          ${isStarCatchEnabled ? 
+            '<span class="star-catch-bonus">(Star Catch +5%)</span>' : 
+            ''}
+          ${starforce.luckyDayBonus > 0 ? 
+            `<span class="lucky-day-bonus">(Lucky Day +${starforce.luckyDayBonus}%)</span>` : 
+            ''}
+        </span>
+      </div>
+      <div class="stat-row">
+        คงเดิม ${maintainRate.toFixed(2)}%
+      </div>
+      <div class="stat-row">
+        ถูกลดลง ${degradeRate.toFixed(2)}%
+      </div>
+      <div class="stat-row">
+        ถูกทำลาย ${starforce.shieldingWardActive ? '0.00' : breakRate.toFixed(2)}%
+      </div>
+    `;
+  }
+
+  // อัพเดทการแสดงผล upgrade arrow
+  function updateUpgradeArrow(sf) {
+    upgradeArrow.innerHTML = `+${sf} ⟫ <span style="color: #e74c3c">+${sf + 1}</span>`;
+  }
+
+  // อัเดทค่าใช้จ่าย
+  function updateCost(sf) {
+    const cost = starforce.getCost(sf);
+    const costElement = document.querySelector('.coin-amount');
+    
+    // เพิ่ม animation เมื่อค่าเปลี่ยน
+    costElement.style.animation = 'none';
+    costElement.offsetHeight; // trigger reflow
+    costElement.style.animation = 'costUpdate 0.3s ease';
+    
+    // คำนวณค่าใช้จ่ายก่อนลดราคา
+    const originalCost = starforce.isTopBottom ? 
+      (starforce.sfData[sf].costTopBottom || starforce.sfData[sf].cost * 5) : 
+      starforce.sfData[sf].cost;
+    
+    // แสดงผลตามเงื่อนไขการลดราคา
+    if (starforce.mesoDiscountAmount > 0) {
+      costElement.innerHTML = `
+        <div class="coin-icon"></div>
+        <span class="original-cost">${originalCost.toLocaleString()}</span>
+        <span class="discounted-cost">${cost.toLocaleString()}</span>
+      `;
+    } else {
+      costElement.innerHTML = `
+        <div class="coin-icon"></div>
+        ${cost.toLocaleString()}
+      `;
+    }
+  }
+
+  function showResultPopup(result) {
+    const resultPopup = document.querySelector('.result-popup');
+    
+    // เคลียร์เอฟเฟกต์เก่าทั้งหมด
+    clearEffects(resultPopup);
+    
+    // อัพเดทเนื้อหา
+    updatePopupContent(resultPopup, result);
+    
+    // เพิ่มเอฟเฟกต์ใหม่
+    addResultEffect(resultPopup, result);
+    
+    // แสดง popup
+    resultPopup.style.display = 'block';
+    requestAnimationFrame(() => {
+        resultPopup.classList.add('show');
+    });
+  }
+
+  function clearEffects(popup) {
+    const effects = popup.querySelectorAll('.success-effect, .fail-effect, .break-effect, .maintain-effect');
+    effects.forEach(effect => effect.remove());
+  }
+
+  function updatePopupContent(popup, result) {
+    popup.querySelector('.title').textContent = result.message;
+    popup.querySelector('.star-badge').textContent = result.newSF;
+    
+    const upgradeResult = popup.querySelector('.upgrade-result');
+    upgradeResult.innerHTML = `
+      <span>+${currentSF}</span>
+      <span class="arrow">⟫</span>
+      <span class="new-level">+${result.newSF}</span>
+    `;
+  }
+
+  function addResultEffect(popup, result) {
+    const effect = document.createElement('div');
+    if (result.message === 'คงสภาพเดิม') {
+      effect.className = 'maintain-effect';
+    } else if (result.success) {
+      effect.className = 'success-effect';
+    } else if (result.broken) {
+      effect.className = 'break-effect';
+    } else {
+      effect.className = 'fail-effect';
+    }
+    popup.appendChild(effect);
+  }
+
+  function updateGameState(result) {
+    if (!result.broken) {
+      currentSF = result.newSF;
+      starBadge.textContent = currentSF;
+      updateStats(currentSF);
+      updateUpgradeArrow(currentSF);
+      updateCost(currentSF);
+    }
+    starforce.starCatchBonus = false;
+  }
+
+  // 1. แ้ไขังก์ชันหลักสำหรับการ forge
+  function proceedWithForge() {
+    const result = starforce.calculateResult(currentSF);
+    
+    // เพิ่มประวัติ
+    addHistory(result);
+    
+    // ซ่อน Star Catch popup ถ้ามี
+    if (starCatchPopup) {
+      starCatchPopup.style.display = 'none';
+    }
+    
+    // แสดง overlay
+    overlay.style.display = 'flex';
+    
+    // แสดง forge animation
+    showForgeAnimation().then(() => {
+      // หลังจาก animation เสร็จ แสดงผลลัพธ์
+      showResultPopup(result);
+      
+      // อัพเดทสถานะ
+      updateGameState(result);
+      
+      // บันทึกประวัติลง localStorage
+      saveHistory();
+    });
+  }
+
+  // 2. แยกการจัดการ forge animation
+  function showForgeAnimation() {
+    return new Promise((resolve) => {
+      forgeAnimation.style.display = 'flex';
+      forgeAnimation.style.opacity = '0';
+      
+      // รอให้ DOM update
+      requestAnimationFrame(() => {
+        forgeAnimation.style.opacity = '1';
+        
+        // อให้ animation เล่นจบ
+        setTimeout(() => {
+          forgeAnimation.style.opacity = '0';
+          
+          // รอให้ fade out เสร็จก่อนซ่อน
+          setTimeout(() => {
+            forgeAnimation.style.display = 'none';
+            resolve();
+          }, 300);
+        }, 1000);
+      });
+    });
+  }
+
+  // 3. แยกการจัดการ result popup
+  function showResultPopup(result) {
+    const resultPopup = document.querySelector('.result-popup');
+    
+    // เคลียร์เอฟเฟกต์เก่าทั้งหมด
+    clearEffects(resultPopup);
+    
+    // อัพเดทเนื้อหา
+    updatePopupContent(resultPopup, result);
+    
+    // เพิ่มเอฟเฟกต์ใหม่
+    addResultEffect(resultPopup, result);
+    
+    // แสดง popup
+    resultPopup.style.display = 'block';
+    requestAnimationFrame(() => {
+        resultPopup.classList.add('show');
+    });
+  }
+
+  // 4. ฟังก์ชันสนับสนุน
+  function clearEffects(popup) {
+    const effects = popup.querySelectorAll('.success-effect, .fail-effect, .break-effect, .maintain-effect');
+    effects.forEach(effect => effect.remove());
+  }
+
+  function updatePopupContent(popup, result) {
+    popup.querySelector('.title').textContent = result.message;
+    popup.querySelector('.star-badge').textContent = result.newSF;
+    
+    const upgradeResult = popup.querySelector('.upgrade-result');
+    upgradeResult.innerHTML = `
+      <span>+${currentSF}</span>
+      <span class="arrow">⟫</span>
+      <span class="new-level">+${result.newSF}</span>
+    `;
+  }
+
+  function addResultEffect(popup, result) {
+    const effect = document.createElement('div');
+    if (result.message === 'คงสภาพเดิม') {
+      effect.className = 'maintain-effect';
+    } else if (result.success) {
+      effect.className = 'success-effect';
+    } else if (result.broken) {
+      effect.className = 'break-effect';
+    } else {
+      effect.className = 'fail-effect';
+    }
+    popup.appendChild(effect);
+  }
+
+  function updateGameState(result) {
+    if (!result.broken) {
+      currentSF = result.newSF;
+      starBadge.textContent = currentSF;
+      updateStats(currentSF);
+      updateUpgradeArrow(currentSF);
+      updateCost(currentSF);
+    }
+    starforce.starCatchBonus = false;
+  }
+
+  // 5. ปรับปรุงการปิด popup
+  function closePopup() {
+    const resultPopup = document.querySelector('.result-popup');
+    
+    resultPopup.classList.remove('show');
+    
+    // รอให้ fade out เสร็จก่อนซ่อน
+    setTimeout(() => {
+      resultPopup.style.display = 'none';
+      overlay.style.display = 'none';
+    }, 300);
+  }
+
+  forgeBtn.addEventListener('click', () => {
+    if (starforce.isStarCatch) {
+      startStarCatchGame();
+      
+      stopBtn.onclick = () => {
+        clearInterval(starCatchInterval);
+        checkStarCatchSuccess();
+      };
+    } else {
+      proceedWithForge();
+    }
+  });
+
+  // ร่มต้นแสดงผ
+  updateStats(currentSF);
+  updateUpgradeArrow(currentSF);
+  updateCost(currentSF);
+
+  // เพิ่ม Event Listener สำหรับ checkbox
+  const starCatchToggle = document.getElementById('starCatchToggle');
+  const topBottomToggle = document.getElementById('topBottomToggle');
+
+  starCatchToggle.addEventListener('change', () => {
+    starforce.toggleStarCatch();
+    updateStats(currentSF);
+    updateCost(currentSF);
+  });
+
+  topBottomToggle.addEventListener('change', () => {
+    starforce.toggleTopBottom();
+    updateCost(currentSF);
+  });
+
+  // เพิ่มตัวแปรและฟังก์ชันใหม่
+  const starCatchPopup = document.querySelector('.star-catch-popup');
+  const movingStar = document.querySelector('.moving-star');
+  const stopBtn = document.querySelector('.stop-btn');
+  let starCatchInterval;
+  let direction = 1;
+  let position = 0;
+
+  // เพิ่มฟังก์ชันคำนวณความยากของเกม
+  function calculateGameDifficulty(starForceLevel) {
+    let targetWidth, speed;
+    
+    if (starForceLevel <= 5) {
+      // Phase 1: 0-5 ดาว
+      targetWidth = 50 - (starForceLevel * 1); // 50% -> 45%
+      speed = 3 + (starForceLevel * 0.1); // 3 -> 3.5
+    } 
+    else if (starForceLevel <= 10) {
+      // Phase 2: 6-10 ดาว
+      targetWidth = 45 - ((starForceLevel - 5) * 1.5); // 45% -> 37.5%
+      speed = 3.5 + ((starForceLevel - 5) * 0.15); // 3.5 -> 4.25
+    }
+    else if (starForceLevel <= 15) {
+      // Phase 3: 11-15 ดาว
+      targetWidth = 37.5 - ((starForceLevel - 10) * 1.5); // 37.5% -> 30%
+      speed = 4.25 + ((starForceLevel - 10) * 0.2); // 4.25 -> 5.25
+    }
+    else if (starForceLevel <= 20) {
+      // Phase 4: 16-20 ดาว
+      targetWidth = 30 - ((starForceLevel - 15) * 2); // 30% -> 20%
+      speed = 5.25 + ((starForceLevel - 15) * 0.25); // 5.25 -> 6.5
+    }
+    else {
+      // Phase 5: 21+ ดา
+      targetWidth = Math.max(10, 20 - ((starForceLevel - 20) * 0.5)); // 20% -> 10%
+      speed = 6.5 + ((starForceLevel - 20) * 0.15); // 6.5 -> 7.75
+    }
+    
+    return {
+      targetWidth: Math.max(10, targetWidth), // ไม่ให้น้อยกว่า 10%
+      speed: speed
+    };
+  }
+
+  function startStarCatchGame() {
+    const difficulty = calculateGameDifficulty(currentSF);
+    
+    starCatchPopup.style.display = 'block';
+    overlay.style.display = 'block';
+    position = 0;
+    movingStar.style.left = position + 'px';
+    
+    // ปรับขนาดพื้นที่เป้าหมาย
+    const gameContainer = document.querySelector('.game-container');
+    const targetZone = document.querySelector('.target-zone');
+    const containerWidth = gameContainer.offsetWidth;
+    const targetWidth = (containerWidth * difficulty.targetWidth) / 100;
+    
+    targetZone.style.width = targetWidth + 'px';
+    
+    // เพิ่มการแสดงผลความยา
+    const difficultyDisplay = document.createElement('div');
+    difficultyDisplay.className = 'difficulty-display';
+    difficultyDisplay.textContent = `โอกาสสำเร็จ: ${difficulty.targetWidth.toFixed(1)}%`;
+    gameContainer.appendChild(difficultyDisplay);
+    
+    starCatchInterval = setInterval(() => {
+      const containerWidth = gameContainer.offsetWidth;
+      const starWidth = movingStar.offsetWidth;
+      
+      position += direction * difficulty.speed;
+      
+      if (position >= containerWidth - starWidth) {
+        direction = -1;
+      } else if (position <= 0) {
+        direction = 1;
+      }
+      
+      movingStar.style.left = position + 'px';
+    }, 16);
+  }
+
+  // แยกฟังก์ชันการ Forge อกมา
+  function proceedWithForge() {
+    const result = starforce.calculateResult(currentSF);
+    
+    // เพิ่มประวัติ
+    addHistory(result);
+    
+    // 1. ซ่น Star Catch popup (ถ้ามี)
+    starCatchPopup.style.display = 'none';
+    
+    // 2. แสดง overlay และ forge animation
+    overlay.style.display = 'flex';
+    forgeAnimation.style.display = 'flex';
+    
+    // รอ micro task เพื่อให้ DOM update
+    requestAnimationFrame(() => {
+      forgeAnimation.classList.add('show');
+      
+      // 3. หลังจาก animation สร็จ (1 วินาที)
+      setTimeout(() => {
+        // ซ่อน forge animation
+        forgeAnimation.classList.remove('show');
+        forgeAnimation.style.display = 'none';
+        
+        // 4. แสดงผลลัพธ์
+        showResultPopup(result);
+        
+        // 5. อัพเดทสถานะต่างๆ
+        if (!result.broken) {
+          currentSF = result.newSF;
+          starBadge.textContent = currentSF;
+          updateStats(currentSF);
+          updateUpgradeArrow(currentSF);
+          updateCost(currentSF);
+        }
+        
+        // รีเซ็ต Star Catch bonus
+        starforce.starCatchBonus = false;
+        
+        // บันทึกประวัติลง localStorage
+        saveHistory();
+      }, 1000);
+    });
+  }
+
+  // แยกฟังก์ชันการแสดงผลความยาก
+  const style = document.createElement('style');
+  style.textContent = `
+    .difficulty-display {
+      position: absolute;
+      bottom: -25px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 12px;
+      color: #4cc7f4;
+      white-space: nowrap;
+    }
+
+    .target-zone {
+      transition: width 0.3s ease;
+    }
+
+    .moving-star {
+      text-shadow: 0 0 10px #ffd700;
+    }
+  `;
+  document.head.appendChild(style);
+
+  // ก้ไขฟังก์ชัน checkStarCatchSuccess
+  async function checkStarCatchSuccess() {
+    const targetZone = document.querySelector('.target-zone');
+    const targetRect = targetZone.getBoundingClientRect();
+    const starRect = movingStar.getBoundingClientRect();
+    
+    const starCenter = starRect.left + (starRect.width / 2);
+    const success = starCenter >= targetRect.left && starCenter <= targetRect.right;
+    
+    // ส่อน Star Catch popup
+    starCatchPopup.style.display = 'none';
+    
+    if (success) {
+      // แสด popup สำเร็จ
+      const successPopup = document.querySelector('.star-catch-success');
+      successPopup.style.display = 'flex';
+      successPopup.style.opacity = '0';
+      
+      requestAnimationFrame(() => {
+        successPopup.style.opacity = '1';
+        successPopup.classList.add('show');
+        
+        setTimeout(() => {
+          successPopup.classList.remove('show');
+          successPopup.style.opacity = '0';
+          
+          setTimeout(() => {
+            successPopup.style.display = 'none';
+            // ตั้งค่า bonus และดำเนินการ forge
+            starforce.starCatchBonus = true; // เปลี่ยเป็น true เมื่อำเร็จ
+            proceedWithForge();
+          }, 300);
+        }, 1000);
+      });
+    } else {
+      starforce.starCatchBonus = false; // เปลี่ยนเป็น false เมื่อไม่สำเร็จ
+      proceedWithForge();
+    }
+    
+    return success;
+  }
+
+  // แก้ไข Event Listener ของปุ่ม Stop
+  stopBtn.onclick = () => {
+    clearInterval(starCatchInterval);
+    checkStarCatchSuccess();
+  };
+
+  function showForgeEffect(result) {
+    const item = document.querySelector('.item-icon');
+    const effect = document.createElement('div');
+    
+    if (result.message === 'คงสภาพเดิม') {
+      effect.className = 'maintain-effect';
+    } else if (result.message === 'ลดระดับ' || result.message === 'อุปกรณ์แตกหัก') {
+      effect.className = 'fail-effect';
+    }
+    
+    item.appendChild(effect);
+    
+    effect.addEventListener('animationend', () => {
+      effect.remove();
+    });
+  }
+
+  // เพิ่มตัวแปรสำหรับเก็บประวัติ
+  let forgeHistory = [];
+  const MAX_HISTORY = 100;
+  let forgeStats = {
+    total: 0,
+    success: 0,
+    maintain: 0,
+    fail: 0,
+    break: 0,
+    totalCost: 0
+  };
+
+  // เพิ่มฟังก์ชันสำหรับเพิ่มประวัติใหม่
+  function addHistory(result) {
+    const historyItem = {
+      fromStars: currentSF,
+      toStars: result.newSF,
+      status: getResultStatus(result),
+      timestamp: new Date(),
+      starCatch: starforce.starCatchBonus,
+      cost: starforce.getCost(currentSF),
+      scrolls: {
+        luckyDay: starforce.luckyDayBonus,
+        shield: starforce.shieldScrollActive,
+        ward: starforce.shieldingWardActive,
+        mesoDiscount: starforce.mesoDiscountAmount
+      }
+    };
+
+    forgeHistory.unshift(historyItem);
+    if (forgeHistory.length > MAX_HISTORY) {
+      forgeHistory.pop();
+    }
+
+    updateForgeStats(historyItem);
+    updateHistoryDisplay();
+    saveHistory();
+  }
+
+  // เพิ่มฟังก์ชันอัพเดทสถิติ
+  function updateForgeStats(item) {
+    forgeStats.total++;
+    forgeStats[item.status]++;
+    forgeStats.totalCost += item.cost;
+    updateStatsDisplay();
+  }
+
+  // เพิ่มฟังก์ชันแสดงผลสถิติ
+  function updateStatsDisplay() {
+    document.querySelector('.stat-item.total .stat-value').textContent = forgeStats.total;
+    document.querySelector('.stat-item.success .stat-value').textContent = forgeStats.success;
+    document.querySelector('.stat-item.maintain .stat-value').textContent = forgeStats.maintain;
+    document.querySelector('.stat-item.fail .stat-value').textContent = forgeStats.fail;
+    document.querySelector('.stat-item.break .stat-value').textContent = forgeStats.break;
+    document.querySelector('.stat-item.cost .stat-value').textContent = forgeStats.totalCost.toLocaleString();
+  }
+
+  // แก้ไขฟังก์ชัน saveHistory
+  function saveHistory() {
+    localStorage.setItem('forgeHistory', JSON.stringify({
+      history: forgeHistory,
+      stats: forgeStats
+    }));
+  }
+
+  // แก้ไขฟังก์ชัน loadHistory
+  function loadHistory() {
+    const saved = localStorage.getItem('forgeHistory');
+    if (saved) {
+      const data = JSON.parse(saved);
+      forgeHistory = data.history.map(item => ({
+        ...item,
+        timestamp: new Date(item.timestamp)
+      }));
+      forgeStats = data.stats || {
+        total: 0,
+        success: 0,
+        maintain: 0,
+        fail: 0,
+        break: 0,
+        totalCost: 0
+      };
+      updateHistoryDisplay();
+      updateStatsDisplay();
+    }
+  }
+
+  // แก้ไขฟังก์ชัน clearHistory
+  function clearHistory() {
+    if (confirm('ต้องการเคลียร์ประวัติการตีบวกทั้งหมดหรือไม่?')) {
+      forgeHistory = [];
+      forgeStats = {
+        total: 0,
+        success: 0,
+        maintain: 0,
+        fail: 0,
+        break: 0,
+        totalCost: 0
+      };
+      localStorage.removeItem('forgeHistory');
+      updateHistoryDisplay();
+      updateStatsDisplay();
+    }
+  }
+
+  function showScrollPopup(popupId) {
+    document.getElementById(popupId).classList.add('show');
+    overlay.style.display = 'flex';
+  }
+
+  function closeScrollPopup(popupId) {
+    document.getElementById(popupId).classList.remove('show');
+    overlay.style.display = 'none';
+  }
+
+  function applyLuckyDay() {
+    const value = parseInt(document.getElementById('luckyDayInput').value);
+    if (value && value > 0 && value <= 100) {
+      starforce.luckyDayBonus = value;
+      updateScrollUI('luckyDay');
+      updateStats(currentSF);
+    }
+    closeScrollPopup('luckyDayPopup');
+  }
+
+  function applyMesoDiscount() {
+    const value = parseInt(document.getElementById('mesoDiscountInput').value);
+    if (value && value >= 0) {
+      starforce.mesoDiscountAmount = value;
+      updateScrollUI('mesoDiscount');
+      updateCost(currentSF);
+    }
+    closeScrollPopup('mesoDiscountPopup');
+  }
+
+  function toggleShieldScroll() {
+    starforce.shieldScrollActive = !starforce.shieldScrollActive;
+    updateScrollUI('shield');
+    updateStats(currentSF);
+  }
+
+  function toggleShieldingWard() {
+    starforce.shieldingWardActive = !starforce.shieldingWardActive;
+    updateScrollUI('ward');
+    updateStats(currentSF);
+  }
+
+  function updateScrollUI(type) {
+    const scrolls = document.querySelectorAll('.scroll-item');
+    
+    switch(type) {
+      case 'luckyDay':
+        if (starforce.luckyDayBonus > 0) {
+          scrolls[0].classList.add('active');
+        } else {
+          scrolls[0].classList.remove('active');
+        }
+        break;
+      case 'shield':
+        if (starforce.shieldScrollActive) {
+          scrolls[1].classList.add('active');
+        } else {
+          scrolls[1].classList.remove('active');
+        }
+        break;
+      case 'ward':
+        if (starforce.shieldingWardActive) {
+          scrolls[2].classList.add('active');
+        } else {
+          scrolls[2].classList.remove('active');
+        }
+        break;
+      case 'mesoDiscount':
+        if (starforce.mesoDiscountAmount > 0) {
+          scrolls[3].classList.add('active');
+        } else {
+          scrolls[3].classList.remove('active');
+        }
+        break;
+    }
+  }
+
+  function resetScroll(type) {
+    switch(type) {
+      case 'luckyDay':
+        starforce.luckyDayBonus = 0;
+        break;
+      case 'shield':
+        starforce.shieldScrollActive = false;
+        break;
+      case 'ward':
+        starforce.shieldingWardActive = false;
+        break;
+      case 'mesoDiscount':
+        starforce.mesoDiscountAmount = 0;
+        break;
+    }
+    updateScrollUI(type);
+    updateStats(currentSF);
+    updateCost(currentSF);
+  }
+
+  // แก้ไข Event Listeners สำหรับ scroll items
+  document.querySelectorAll('.scroll-item').forEach((item, index) => {
+    item.addEventListener('click', () => {
+      // ถ้าคลิกที่ scroll ที่ active อยู่แล้ว ให้รีเซ็ต
+      if (item.classList.contains('active')) {
+        switch(index) {
+          case 0:
+            resetScroll('luckyDay');
+            break;
+          case 1:
+            resetScroll('shield');
+            break;
+          case 2:
+            resetScroll('ward');
+            break;
+          case 3:
+            resetScroll('mesoDiscount');
+            break;
+        }
+        return;
+      }
+ 
+      switch(index) {
+        case 0: // Lucky Day
+          showScrollPopup('luckyDayPopup');
+          break;
+        case 1: // Shield Scroll
+          toggleShieldScroll();
+          break;
+        case 2: // Shielding Ward
+          toggleShieldingWard();
+          break;
+        case 3: // Enhanced Meso Discount
+          showScrollPopup('mesoDiscountPopup');
+          break;
+      }
+    });
+  });
+
+  // เพิ่มฟังก์ชันสำหรับแปลงผลลัพธ์เป็นสถานะ
+  function getResultStatus(result) {
+    if (result.broken) return 'break';
+    if (result.success) return 'success';
+    if (result.message === 'คงสภาพเดิม') return 'maintain';
+    return 'fail';
+  }
+
+  // เพิ่มฟังก์ชันสำหรับแสดงผลประวัติ
+  function updateHistoryDisplay() {
+    const historyList = document.querySelector('.history-list');
+    historyList.innerHTML = forgeHistory.map(item => `
+      <div class="history-item">
+        <div class="history-result">
+          <div class="history-stars">
+            +${item.fromStars}
+            <span class="history-arrow">⟫</span>
+            +${item.toStars}
+            ${item.starCatch ? '<span class="history-star-catch">★</span>' : ''}
+            <div class="history-scrolls">
+              ${item.scrolls.luckyDay ? '<img src="https://dszw1qtcnsa5e.cloudfront.net/community/20230808/ed0448ef-cd63-4664-9785-7e12b0e694d7/image2023080811050810.png" alt="Lucky Day" title="Lucky Day +' + item.scrolls.luckyDay + '%">' : ''}
+              ${item.scrolls.shield ? '<img src="https://grandislibrary.com/images/items/shield-scroll.png" alt="Shield Scroll" title="Shield Scroll">' : ''}
+              ${item.scrolls.ward ? '<img src="https://grandislibrary.com/images/items/protection-scroll.png" alt="Shielding Ward" title="Shielding Ward">' : ''}
+              ${item.scrolls.mesoDiscount ? '<img src="Enhanced Meso Discount.png" alt="Meso Discount" title="Meso Discount -' + item.scrolls.mesoDiscount + '">' : ''}
+            </div>
+          </div>
+        </div>
+        <div class="history-status ${item.status}">
+          ${getStatusText(item.status)}
+        </div>
+        <div class="history-timestamp">
+          ${formatTimestamp(item.timestamp)}
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // เพิ่มฟังก์ชันสำหรับแปลงสถานะเป็นข้อความ
+  function getStatusText(status) {
+    switch (status) {
+      case 'success': return 'สำเร็จ';
+      case 'fail': return 'ล้มเหลว';
+      case 'maintain': return 'คงเดิม';
+      case 'break': return 'แตกหัก';
+      default: return '';
+    }
+  }
+
+  // เพิ่มฟังก์ชันสำหรับจัดรูปแบบเวลา
+  function formatTimestamp(date) {
+    return date.toLocaleTimeString('th-TH', {
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    });
+  }
+  </script>
+</body>
+</html>
