@@ -6,6 +6,11 @@
     background: #1a1f2e;
     color: #fff;
     font-family: Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
   }
 
   .container {
@@ -16,6 +21,8 @@
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
     border: 1px solid #3d465a;
+    transform-origin: top center;
+    width: 500px; /* ขนาดมาตรฐาน */
   }
   
   .header {
@@ -178,7 +185,7 @@
 
   .forge-animation {
     position: fixed;
-    top: 50%;
+    top: 40%; /* เปลี่ยนจาก 50% เป็น 40% */
     left: 50%;
     transform: translate(-50%, -50%) scale(0.8);
     z-index: 1001;
@@ -195,6 +202,12 @@
     align-items: center;
     justify-content: center;
     border: 1px solid rgba(76, 199, 244, 0.3);
+    transform-origin: center;
+    transform: scale(min(
+      1,
+      calc(100vw / 400),
+      calc(100vh / 400)
+    ));
   }
 
   .forge-animation.show {
@@ -227,11 +240,11 @@
   }
 
   @keyframes popupShake {
-    0% { transform: translate(-50%, -50%); }
-    25% { transform: translate(-50%, -48%); }
-    50% { transform: translate(-50%, -50%); }
-    75% { transform: translate(-50%, -48%); }
-    100% { transform: translate(-50%, -50%); }
+    0% { transform: translate(-50%, -50%) scale(0.8); }
+    25% { transform: translate(-50%, -48%) scale(0.8); }
+    50% { transform: translate(-50%, -50%) scale(0.8); }
+    75% { transform: translate(-50%, -48%) scale(0.8); }
+    100% { transform: translate(-50%, -50%) scale(0.8); }
   }
 
   .overlay {
@@ -250,7 +263,7 @@
 
   .result-popup {
     position: fixed;
-    top: 50%;
+    top: 40%; /* เปลี่ยนจาก 50% เป็น 40% */
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1001;
@@ -267,23 +280,29 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    transform-origin: center;
+    transform: scale(min(
+      1.8, /* เพิ่มจาก 1.2 เป็น 1.4 */
+      calc(100vw / 250), /* ลดจาก 400 เป็น 350 เพื่อให้ scale ใหญ่ขึ้น */
+      calc(100vh / 350) /* ลดจาก 500 เป็น 450 เพื่อให้ scale ใหญ่ขึ้น */
+    ));
   }
 
   .result-popup.show {
     opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
+    transform: translate(-50%, -50%) scale(1.2);
   }
 
   .result-popup .title {
-    font-size: 1.25rem;
+    font-size: 1.5rem; /* เพิ่มจาก 1.25rem */
     color: #4cc7f4;
-    margin-bottom: 16px;
+    margin-bottom: 20px; /* เพิ่มจาก 16px */
   }
 
   .result-popup button {
     position: relative;
     z-index: 2;
-    margin-top: 16px;
+    margin-top: 40%;
   }
 
   .result-item {
@@ -394,6 +413,7 @@
     0%, 100% { opacity: 0; }
     50% { opacity: 1; }
   }
+  
 
   .result-popup .title,
   .result-popup .result-item,
@@ -537,9 +557,9 @@
 
   .star-catch-popup {
     position: fixed;
-    top: 50%;
+    top: 40%; /* เปลี่ยนจาก 50% เป็น 40% เหมือน result popup */
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) scale(1.2);
     background: #2a3142;
     padding: 24px;
     border-radius: 8px;
@@ -549,6 +569,12 @@
     min-width: 300px;
     text-align: center;
     display: none;
+    transform-origin: center;
+    transform: scale(min(
+      1,
+      calc(100vw / 500),
+      calc(100vh / 600)
+    ));
   }
 
   .star-catch-popup .title {
@@ -562,7 +588,7 @@
     height: 60px;
     background: #232836;
     border-radius: 4px;
-    margin: 20px 0;
+    margin: 20% 0 0;
     overflow: hidden;
   }
 
@@ -590,6 +616,7 @@
     background: #4cc7f4;
     color: white;
     padding: 8px 24px;
+    margin-top: 40%;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -648,6 +675,12 @@
     text-align: center;
     opacity: 0;
     transition: all 0.3s ease;
+    transform-origin: center;
+    transform: scale(min(
+      1,
+      calc(100vw / 500),
+      calc(100vh / 600)
+    ));
   }
 
   .star-catch-result-popup.show {
@@ -705,7 +738,7 @@
   /* CSS สำหรับ Star Catch Success Popup */
   .star-catch-success {
     position: fixed;
-    top: 50%;
+    top: 40%; /* เปลี่ยนจาก 50% เป็น 40% */
     left: 50%;
     transform: translate(-50%, -50%) scale(0.8);
     z-index: 1001;
@@ -724,6 +757,12 @@
     justify-content: center;
     border: 1px solid rgba(255, 255, 255, 0.2);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    transform-origin: center;
+    transform: scale(min(
+      1.4, /* เพิ่มจาก 1 เป็น 1.4 */
+      calc(100vw / 350),
+      calc(100vh / 450)
+    ));
   }
 
   .star-catch-success.show {
@@ -733,7 +772,7 @@
   }
 
   .star-catch-success .star-icon {
-    font-size: 48px;
+    font-size: 64px; /* เพิ่มจาก 48px */
     color: #ffd700;
     margin-bottom: 15px;
     animation: starPulse 1.5s ease-in-out infinite;
@@ -743,7 +782,7 @@
 
   .star-catch-success .success-text {
     color: #ffffff;
-    font-size: 16px;
+    font-size: 1.2rem; /* เพิ่มจาก 16px */
     font-weight: 500;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   }
@@ -812,6 +851,9 @@
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
     border: 1px solid #3d465a;
+    transform-origin: top center;
+    width: 500px;
+    height: auto; /* เปลี่ยนจาก 100% เป็น auto */
   }
 
   .history-header {
@@ -834,6 +876,7 @@
     border-radius: 4px;
     cursor: pointer;
     transition: all 0.2s ease;
+    transform: none !important;
   }
 
   .clear-history-btn:hover {
@@ -847,8 +890,12 @@
   }
 
   .history-list {
-    max-height: 300px;
+    max-height: 300px; /* กำหนดความสูงคงที่ */
     overflow-y: auto;
+    border: 1px solid #3d465a;
+    border-radius: 4px;
+    padding: 4px;
+    margin-top: 10px;
   }
 
   .history-item {
@@ -948,7 +995,7 @@
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%)scale(1.0);
     background: #2a3142;
     padding: 20px;
     border-radius: 8px;
@@ -957,6 +1004,12 @@
     display: none;
     width: 300px;
     text-align: center;
+    transform-origin: center;
+    transform: scale(min(
+      1,
+      calc(100vw / 500),
+      calc(100vh / 600)
+    ));
   }
 
   .scroll-popup.show {
@@ -1113,6 +1166,1556 @@
   .discounted-cost {
     color: #4cc7f4;
   }
+
+  .auto-forge-btn {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    margin-left: 8px;
+    border-radius: 50%;
+    background: transparent;
+    border: 1px solid #3d465a;
+    color: #a7b7d4;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .auto-forge-btn.with-text {
+    width: auto;
+    padding: 0 12px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .auto-forge-btn.with-text i {
+    font-size: 0.9em;
+  }
+
+  .auto-forge-btn.with-text span {
+    font-size: 0.9em;
+  }
+
+  .auto-forge-btn:hover {
+    background: rgba(76, 199, 244, 0.1);
+    border-color: #4cc7f4;
+    color: #4cc7f4;
+  }
+
+  .auto-forge-settings {
+    text-align: left;
+    margin: 25px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .setting-group {
+    background: rgba(35, 40, 54, 0.5);
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #3d465a;
+  }
+
+  .setting-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #a7b7d4;
+    font-weight: 500;
+    font-size: 0.95rem;
+  }
+
+  .checkbox-label {
+    display: flex !important;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .checkbox-label > div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .setting-description {
+    font-size: 0.8rem;
+    color: #8b95a8;
+    margin-top: 2px;
+  }
+
+  .setting-group input[type="number"] {
+    background: #232836;
+    border: 1px solid #3d465a;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 4px;
+    width: 90%;
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .mode-select, .scroll-select {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .mode-select label, .scroll-select label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+  }
+
+  .mode-select label:hover, .scroll-select label:hover {
+    background: rgba(76, 199, 244, 0.05);
+  }
+
+  .mode-select input[type="radio"],
+  .scroll-select input[type="checkbox"] {
+    margin: 0;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+  }
+
+  .scroll-select input[type="number"] {
+    width: 100px;
+    margin: 0;
+    margin-left: auto;
+    padding: 4px 8px;
+    font-size: 0.9rem;
+  }
+
+  .scroll-select label.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .scroll-select label.disabled:hover {
+    background: none;
+  }
+
+  .auto-forge-popup-footer {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #3d465a;
+  }
+
+  .auto-forge-popup-footer .buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .auto-forge-popup-footer button {
+    min-width: 120px;
+    padding: 8px 16px;
+    font-size: 1rem;
+  }
+
+  .auto-forge-popup-footer button.start {
+    background: #4cc7f4;
+    color: #fff;
+    border: none;
+  }
+
+  .auto-forge-popup-footer button.start:hover {
+    background: #3db5e0;
+  }
+
+  .setting-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px 0;
+    flex-wrap: wrap;
+  }
+
+  .setting-row label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    cursor: pointer;
+  }
+
+  .setting-row input[type="number"] {
+    width: 80px;
+    padding: 4px 8px;
+    margin: 0;
+    font-size: 0.9rem;
+  }
+
+  .setting-row input[type="number"].small-input {
+    width: 60px;
+    margin-left: 8px;
+  }
+
+  .setting-row input[type="checkbox"],
+  .setting-row input[type="radio"] {
+    width: 16px;
+    height: 16px;
+    margin: 0;
+    cursor: pointer;
+  }
+
+  /* เพิ่ม CSS สำหรับปุ่ม refresh ในส่วน <style> */
+  .refresh-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    background: #2a3142;
+    border: 1px solid #3d465a;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    color: #4cc7f4;
+    transform: none !important;
+  }
+
+  .refresh-btn:hover {
+    background: #3d465a;
+    transform: rotate(180deg);
+  }
+
+  .refresh-btn i {
+    font-size: 1.2rem;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .refresh-btn.spinning {
+    pointer-events: none;
+    animation: spin 1s linear;
+  }
+
+  /* เพิ่ม Media Queries สำหรับหน้าจอขนาดเล็ก */
+  @media screen and (max-width: 900px) {
+    .container {
+      max-width: 100%;
+      margin: 10px;
+      padding: 15px;
+    }
+
+    .history-container {
+      max-width: 100%;
+      margin: 10px;
+    }
+
+    .scrolls-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .scroll-item {
+      padding: 6px;
+    }
+
+    .scroll-item img {
+      width: 40px;
+      height: 40px;
+    }
+
+    .scroll-name {
+      font-size: 0.8rem;
+    }
+
+    .cost-section {
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .cost-section button {
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .auto-forge-btn {
+      width: 100%;
+      margin-left: 0;
+      margin-top: 10px;
+    }
+
+    .options-container {
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .checkbox-container {
+      width: 100%;
+    }
+
+    /* ปรับขนาด popup ต่างๆ */
+    .result-popup,
+    .star-catch-popup,
+    .scroll-popup,
+    .star-catch-success {
+      width: 90%;
+      max-width: 350px;
+      padding: 20px;
+    }
+
+    .history-stats-row {
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .stat-item {
+      min-width: calc(50% - 5px);
+    }
+
+    .history-item {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .history-result {
+      width: 100%;
+      margin-bottom: 5px;
+    }
+
+    .history-timestamp {
+      width: 100%;
+      text-align: right;
+    }
+
+    /* ปรับตำแหน่งปุ่ม refresh สำหรับหน้าจอเล็ก */
+    .refresh-btn {
+      top: 10px;
+      right: 10px;
+      width: 35px;
+      height: 35px;
+    }
+
+    .refresh-btn i {
+      font-size: 1rem;
+    }
+  }
+
+  /* เพิ่ม Media Queries สำหรับหน้าจอที่เล็กมาก */
+  @media screen and (max-width: 400px) {
+    .scrolls-grid {
+      grid-template-columns: repeat(1, 1fr);
+    }
+
+    .scroll-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px;
+    }
+
+    .scroll-item img {
+      width: 32px;
+      height: 32px;
+      margin: 0;
+    }
+
+    .scroll-name {
+      text-align: left;
+      margin: 0;
+    }
+
+    .stat-item {
+      min-width: 100%;
+    }
+
+    .history-stats-row {
+      flex-direction: column;
+    }
+
+    .auto-forge-settings {
+      padding: 10px;
+    }
+
+    .setting-row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 5px;
+    }
+
+    .mode-select label,
+    .scroll-select label {
+      flex-wrap: wrap;
+    }
+
+    .mode-select input[type="number"],
+    .scroll-select input[type="number"] {
+      width: 100%;
+      margin-top: 5px;
+    }
+  }
+
+  /* เพิ่ม Media Queries สำหรับหน้าจอขนาดเล็กกว่า 500px */
+  @media screen and (max-width: 500px) {
+    body {
+      padding: 0;
+      margin: 0;
+    }
+
+    .container, 
+    .history-container {
+      max-width: 100%;
+      margin: 0;
+      padding: 10px;
+      border-radius: 0;
+      border-left: none;
+      border-right: none;
+      transform: scale(calc(100vw / 500));
+      margin-bottom: calc((500px - 100vw) / 2);
+    }
+
+    .header {
+      font-size: 1.1rem;
+      padding: 8px 0;
+    }
+
+    .item-section {
+      padding: 8px;
+      gap: 10px;
+    }
+
+    .item-icon img {
+      width: 48px;
+      height: 48px;
+    }
+
+    .star-badge {
+      font-size: 0.7rem;
+      padding: 1px 3px;
+    }
+
+    .stats {
+      padding: 8px;
+      font-size: 0.9rem;
+    }
+
+    .scrolls-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+      margin: 10px 0;
+    }
+
+    .scroll-item {
+      padding: 4px;
+    }
+
+    .scroll-item img {
+      width: 36px;
+      height: 36px;
+    }
+
+    .scroll-name {
+      font-size: 0.75rem;
+    }
+
+    .options-container {
+      padding: 8px;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .checkbox-container {
+      width: 100%;
+      font-size: 0.9rem;
+    }
+
+    .cost-section {
+      flex-direction: column;
+      gap: 8px;
+      padding-top: 10px;
+    }
+
+    .coin-amount {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .cost-section button {
+      width: 100%;
+      margin: 0;
+      padding: 10px;
+    }
+
+    .auto-forge-btn {
+      width: 100%;
+      margin: 0;
+    }
+
+    /* ปรับ Popup ต่างๆ */
+    .result-popup,
+    .star-catch-popup,
+    .scroll-popup,
+    .star-catch-success {
+      width: 95%;
+      max-width: none;
+      padding: 15px;
+      border-radius: 6px;
+    }
+
+    .star-catch-popup .game-container {
+      height: 50px;
+    }
+
+    .moving-star {
+      font-size: 36px;
+    }
+
+    /* ปรับ History section */
+    .history-stats {
+      padding: 8px;
+    }
+
+    .history-stats-row {
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    .stat-item {
+      min-width: calc(50% - 4px);
+      padding: 6px;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+    }
+
+    .stat-value {
+      font-size: 0.95rem;
+    }
+
+    .history-item {
+      padding: 8px;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .history-result,
+    .history-status,
+    .history-timestamp {
+      width: 100%;
+    }
+
+    .history-scrolls img {
+      width: 14px;
+      height: 14px;
+    }
+
+    /* ปรับ Auto Forge Settings */
+    .auto-forge-settings {
+      padding: 8px;
+    }
+
+    .setting-group {
+      padding: 8px;
+    }
+
+    .setting-row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
+    .mode-select,
+    .scroll-select {
+      width: 100%;
+    }
+
+    .mode-select label,
+    .scroll-select label {
+      font-size: 0.9rem;
+    }
+
+    .setting-row input[type="number"] {
+      width: 100%;
+      padding: 6px;
+    }
+
+    .setting-row input[type="number"].small-input {
+      width: 80px;
+    }
+
+    /* ปรับปุ่ม refresh */
+    .refresh-btn {
+      top: 8px;
+      right: 8px;
+      width: 32px;
+      height: 32px;
+    }
+
+    .refresh-btn i {
+      font-size: 0.9rem;
+    }
+
+    /* ปรับ font size ทั่วไป */
+    button {
+      font-size: 0.9rem;
+    }
+
+    .forge-animation {
+      padding: 20px;
+    }
+
+    .forge-animation .forge-icon {
+      font-size: 36px;
+    }
+
+    .forge-animation .forge-text {
+      font-size: 0.9rem;
+    }
+
+    .result-popup {
+      top: 35%; /* ให้อยู่สูงขึ้นอีกบนหน้าจอมือถือ */
+    }
+
+    .forge-animation {
+      top: 35%;
+    }
+
+    .star-catch-popup {
+      top: 35%;
+    }
+
+    .star-catch-success {
+      top: 35%;
+    }
+  }
+
+  /* เพิ่ม Media Query สำหรับหน้าจอแนวตั้งที่ยาว */
+  @media screen and (max-aspect-ratio: 2/3) and (min-height: 800px) {
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      padding: 10px 0;
+    }
+
+    .container, 
+    .history-container {
+      max-width: 95%;
+      margin: 10px auto;
+      flex-shrink: 0;
+    }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .item-section {
+      margin-bottom: 0;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      padding: 12px;
+    }
+
+    .stat-row {
+      margin: 0;
+    }
+
+    .scrolls-grid {
+      margin: 10px 0;
+    }
+
+    /* ปรับ History Container */
+    .history-container {
+      flex: none; /* เปลี่ยนจาก flex: 1 เป็น flex: none */
+      height: auto;
+      max-height: none;
+    }
+
+    .history-list {
+      max-height: 300px; /* คงความสูงไว้เท่าเดิม */
+      flex: none; /* เปลี่ยนจาก flex: 1 เป็น flex: none */
+      overflow-y: auto;
+      border: 1px solid #3d465a;
+      border-radius: 4px;
+      padding: 4px;
+      margin-top: 10px;
+    }
+
+    /* ปรับ Popup ต่างๆ */
+    .result-popup,
+    .star-catch-popup,
+    .scroll-popup,
+    .star-catch-success {
+      position: fixed;
+      top: 50%;
+      transform: translate(-50%, -50%) scale(1.4);
+      max-height: 90vh;
+      overflow-y: inherit;
+    }
+
+    .auto-forge-settings {
+      max-height: 70vh;
+      overflow-y: auto;
+    }
+
+    /* ปรับ Scroll UI */
+    .scroll-select {
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    /* เพิ่ม Smooth Scrolling */
+    .history-list,
+    .auto-forge-settings,
+    .scroll-select {
+      scrollbar-width: thin;
+      scrollbar-color: #4cc7f4 #2a3142;
+    }
+
+    .history-list::-webkit-scrollbar,
+    .auto-forge-settings::-webkit-scrollbar,
+    .scroll-select::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .history-list::-webkit-scrollbar-track,
+    .auto-forge-settings::-webkit-scrollbar-track,
+    .scroll-select::-webkit-scrollbar-track {
+      background: #2a3142;
+    }
+
+    .history-list::-webkit-scrollbar-thumb,
+    .auto-forge-settings::-webkit-scrollbar-thumb,
+    .scroll-select::-webkit-scrollbar-thumb {
+      background-color: #4cc7f4;
+      border-radius: 3px;
+    }
+
+    /* ปรับระยะห่างระหว่าง Container */
+    .container + .history-container {
+      margin-top: 20px;
+    }
+
+    /* ปรับขนาดและระยะห่างของ Stats */
+    .history-stats {
+      margin-bottom: 15px;
+    }
+
+    .history-stats-row {
+      gap: 8px;
+    }
+
+    /* ปรับ Animation Container */
+    .forge-animation {
+      max-height: 80vh;
+    }
+
+    .result-popup {
+      top: 30%; /* ให้อยู่สูงขึ้นบนหน้าจอแนวตั้งที่ยาว */
+    }
+
+    .forge-animation {
+      top: 30%;
+    }
+
+    .star-catch-popup {
+      top: 30%;
+    }
+
+    .star-catch-success {
+      top: 30%;
+    }
+  }
+
+  /* สำหรับหน้าจอที่ยาวมากๆ */
+  @media screen and (max-aspect-ratio: 2/3) and (min-height: 1000px) {
+    .container, 
+    .history-container {
+      max-width: 90%;
+    }
+
+    .history-list {
+      min-height: auto; /* เปลี่ยนจาก 400px เป็น auto */
+      max-height: 300px; /* คงความสูงสูงสุดไว้ */
+    }
+
+    .stats {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .scrolls-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .scroll-item {
+      padding: 12px;
+    }
+
+    .scroll-item img {
+      width: 48px;
+      height: 48px;
+    }
+
+    /* เพิ่มระยะห่างระหว่าง Elements */
+    .content > * {
+      margin-bottom: 15px;
+    }
+
+    .content > *:last-child {
+      margin-bottom: 0;
+    }
+
+    /* ปรับขนาด Font */
+    .header {
+      font-size: 1.3rem;
+      padding: 12px 0;
+    }
+
+    .stat-row,
+    .scroll-name,
+    .checkbox-container {
+      font-size: 1rem;
+    }
+
+    /* ปรับขนาดปุ่มให้ใหญ่ขึ้น */
+    button {
+      padding: 12px 28px;
+      font-size: 1rem;
+    }
+
+    .auto-forge-btn {
+      padding: 12px;
+    }
+  }
+
+  /* เพิ่ม Media Query สำหรับหน้าจอ aspect ratio 20:9 */
+  @media screen and (aspect-ratio: 20/9) {
+    body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      padding: 20px;
+      max-width: 1800px;
+      margin: 0 auto;
+    }
+
+    .container {
+      margin: 0;
+      height: fit-content;
+    }
+
+    .history-container {
+      margin: 0;
+      height: auto;
+      max-height: none;
+    }
+
+    .content {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .item-section {
+      grid-column: 1 / -1;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .scrolls-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .options-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .cost-section {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 15px;
+    }
+
+    .cost-section button,
+    .auto-forge-btn {
+      width: auto;
+      margin: 0;
+    }
+
+    /* ปรับ History Container */
+    .history-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .history-stats-row:first-child {
+      grid-column: 1 / -1;
+    }
+
+    .history-list {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      gap: 10px;
+      max-height: 300px;
+      height: auto;
+      overflow-y: auto;
+    }
+
+    .history-item {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      align-items: center;
+      gap: 15px;
+    }
+
+    /* ปรับ Popup ต่างๆ */
+    .result-popup,
+    .star-catch-popup,
+    .scroll-popup,
+    .star-catch-success {
+      width: 400px;
+    }
+
+    .auto-forge-settings {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .setting-group {
+      grid-column: auto / span 1;
+    }
+
+    .setting-group:first-child,
+    .setting-group:nth-child(2) {
+      grid-column: 1 / -1;
+    }
+
+    /* ปรับตำแหน่งปุ่ม refresh */
+    .refresh-btn {
+      top: 20px;
+      right: 20px;
+    }
+
+    /* Custom Scrollbar สำหรับหน้าจอกว้าง */
+    .history-list::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .history-list::-webkit-scrollbar-track {
+      background: #2a3142;
+      border-radius: 4px;
+    }
+
+    .history-list::-webkit-scrollbar-thumb {
+      background: #4cc7f4;
+      border-radius: 4px;
+    }
+
+    .history-list::-webkit-scrollbar-thumb:hover {
+      background: #3db6e3;
+    }
+
+    .result-popup {
+      top: 45%; /* ปรับให้อยู่ตรงกลางมากขึ้นบนหน้าจอกว้าง */
+    }
+
+    .forge-animation {
+      top: 45%;
+    }
+
+    .star-catch-popup {
+      top: 45%;
+    }
+
+    .star-catch-success {
+      top: 45%;
+    }
+  }
+
+  /* สำหรับหน้าจอที่กว้างมากๆ (ultrawide) */
+  @media screen and (min-width: 2000px) and (aspect-ratio: 20/9) {
+    body {
+      max-width: 2400px;
+      gap: 30px;
+    }
+
+    .content {
+      gap: 20px;
+    }
+
+    .header {
+      font-size: 1.5rem;
+    }
+
+    .item-icon img {
+      width: 80px;
+      height: 80px;
+    }
+
+    .scroll-item img {
+      width: 56px;
+      height: 56px;
+    }
+
+    .scroll-name {
+      font-size: 1rem;
+    }
+
+    .stat-row {
+      font-size: 1.1rem;
+    }
+
+    button {
+      font-size: 1.1rem;
+      padding: 12px 32px;
+    }
+
+    .history-item {
+      padding: 15px;
+    }
+
+    .history-stats {
+      padding: 15px;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+    }
+
+    .stat-value {
+      font-size: 1.2rem;
+    }
+  }
+
+
+/* ปรับ scale ตามความสูงหน้าจอ */
+@media screen and (max-height: 900px) {
+  body {
+    transform-origin: top center;
+    transform: scale(calc(100vh / 900));
+  }
+}
+
+/* ปรับ scale สำหรับหน้าจอที่มี aspect ratio แปลกๆ */
+@media screen and (min-aspect-ratio: 2/1) {
+  body {
+    transform: scale(min(
+      calc(100vw / 1000),
+      calc(100vh / 900)
+    ));
+  }
+}
+
+/* แก้ไข CSS สำหรับ forge animation */
+.forge-animation {
+  /* ... CSS เดิม ... */
+  transform: scale(min(
+    1.2, /* เพิ่มจาก 1 เป็น 1.2 */
+    calc(100vw / 300), /* ลดจาก 400 เป็น 300 เพื่อให้ scale ใหญ่ขึ้น */
+    calc(100vh / 300)
+  ));
+  padding: 40px 50px; /* เพิ่มจาก 30px 40px */
+}
+
+.forge-animation .forge-icon {
+  font-size: 64px; /* เพิ่มจาก 48px */
+  margin-bottom: 20px; /* เพิ่มจาก 15px */
+}
+
+.forge-animation .forge-text {
+  font-size: 1.2rem; /* เพิ่มจาก 16px */
+}
+
+/* ปรับ animation keyframes */
+@keyframes popupShake {
+  0% { transform: translate(-50%, -50%) scale(1.2); }
+  25% { transform: translate(-50%, -48%) scale(1.2); }
+  50% { transform: translate(-50%, -50%) scale(1.2); }
+  75% { transform: translate(-50%, -48%) scale(1.2); }
+  100% { transform: translate(-50%, -50%) scale(1.2); }
+}
+
+/* ปรับ Media Queries สำหรับหน้าจอเล็ก */
+@media screen and (max-width: 500px) {
+  .result-popup,
+  .forge-animation {
+    transform: scale(min(
+      1.1, /* ลดลงเล็กน้อยสำหรับหน้าจอเล็ก */
+      calc(100vw / 350),
+      calc(100vh / 350)
+    ));
+  }
+
+  .result-popup .title {
+    font-size: 1.3rem;
+  }
+
+  .forge-animation .forge-icon {
+    font-size: 56px;
+  }
+
+  .forge-animation .forge-text {
+    font-size: 1.1rem;
+  }
+
+  .star-catch-popup {
+    top: 35%;
+  }
+
+  .star-catch-success {
+    top: 35%;
+  }
+}
+
+@media screen and (max-aspect-ratio: 2/3) and (min-height: 800px) {
+  .star-catch-popup {
+    top: 30%;
+  }
+
+  .star-catch-success {
+    top: 30%;
+  }
+}
+
+@media screen and (aspect-ratio: 20/9) {
+  .star-catch-popup {
+    top: 45%;
+  }
+
+  .star-catch-success {
+    top: 45%;
+  }
+
+  /* ปรับขนาด scroll popup โดยเฉพาะ auto forge popup */
+  .scroll-popup#autoForgePopup {
+    width: 390px; /* เพิ่มจาก 300px */
+    max-width: 90%;
+    padding: 26px; /* เพิ่มจาก 20px */
+  }
+
+  /* ปรับขนาดหัวข้อ */
+  .scroll-popup#autoForgePopup h3 {
+    font-size: 1.43rem; /* เพิ่มจาก 1.1rem */
+    margin-bottom: 26px; /* เพิ่มจาก 20px */
+  }
+
+  /* ปรับขนาด setting groups */
+  .auto-forge-settings .setting-group {
+    padding: 15.6px; /* เพิ่มจาก 12px */
+    margin-bottom: 13px; /* เพิ่มจาก 10px */
+  }
+
+  /* ปรับขนาดตัวอักษรและระยะห่าง */
+  .setting-group label {
+    font-size: 1.17rem; /* เพิ่มจาก 0.9rem */
+    margin-bottom: 10.4px; /* เพิ่มจาก 8px */
+  }
+
+  .mode-select label,
+  .scroll-select label {
+    padding: 10.4px; /* เพิ่มจาก 8px */
+    font-size: 1.17rem; /* เพิ่มจาก 0.9rem */
+  }
+
+  /* ปรับขนาด input */
+  .setting-group input[type="number"] {
+    padding: 10.4px 15.6px; /* เพิ่มจาก 8px 12px */
+    font-size: 1.17rem; /* เพิ่มจาก 0.9rem */
+  }
+
+  /* ปรับขนาดปุ่ม */
+  .auto-forge-popup-footer button {
+    min-width: 156px; /* เพิ่มจาก 120px */
+    padding: 10.4px 20.8px; /* เพิ่มจาก 8px 16px */
+    font-size: 1.3rem; /* เพิ่มจาก 1rem */
+  }
+
+  /* ปรับระยะห่างด้านล่าง */
+  .auto-forge-popup-footer {
+    margin-top: 32.5px; /* เพิ่มจาก 25px */
+    padding-top: 26px; /* เพิ่มจาก 20px */
+  }
+
+  /* ปรับขนาด checkbox และ radio */
+  .setting-row input[type="checkbox"],
+  .setting-row input[type="radio"] {
+    width: 20.8px; /* เพิ่มจาก 16px */
+    height: 20.8px; /* เพิ่มจาก 16px */
+  }
+
+  /* ปรับขนาด input เล็ก */
+  .setting-row input[type="number"].small-input {
+    width: 78px; /* เพิ่มจาก 60px */
+    font-size: 1.17rem; /* เพิ่มจาก 0.9rem */
+  }
+}
+/* ปรับ popup auto forge สำหรับหน้าจอที่มีความสูงน้อย */
+@media screen and (max-height: 600px) {
+  .scroll-popup#autoForgePopup {
+    /* ลบ display: none ตรงนี้ออก เพราะซ้ำซ้อนกับ display: grid */
+    width: 80vw;
+    max-width: 800px;
+    padding: 20px;
+    display: grid; /* คงไว้เฉพาะ display: grid */
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-items: start;
+  }
+
+  /* จัดการส่วนหัว */
+  .scroll-popup#autoForgePopup .scroll-icon,
+  .scroll-popup#autoForgePopup h3 {
+    grid-column: 1 / -1;
+    text-align: center;
+  }
+
+  /* จัดการ settings */
+  .auto-forge-settings {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    grid-column: 1 / -1;
+  }
+
+  /* ปรับขนาดและการจัดวาง setting groups */
+  .auto-forge-settings .setting-group {
+    margin: 0;
+    height: fit-content;
+  }
+
+  /* ปรับขนาดตัวอักษรให้เล็กลงเพื่อให้พอดีกับพื้นที่ */
+  .setting-group label,
+  .mode-select label,
+  .scroll-select label {
+    font-size: 0.9rem;
+    padding: 6px;
+  }
+
+  /* ปรับขนาด input */
+  .setting-group input[type="number"] {
+    padding: 4px 8px;
+    font-size: 0.9rem;
+  }
+
+  /* จัดการ footer */
+  .auto-forge-popup-footer {
+    grid-column: 1 / -1;
+    margin-top: 15px;
+    padding-top: 15px;
+  }
+
+  /* ปรับขนาดปุ่ม */
+  .auto-forge-popup-footer button {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+  }
+
+  /* จัดการ scroll select ให้อยู่ในแนวนอน */
+  .scroll-select {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  /* ปรับขนาด checkbox และ radio */
+  .setting-row input[type="checkbox"],
+  .setting-row input[type="radio"] {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* ปรับขนาด input เล็ก */
+  .setting-row input[type="number"].small-input {
+    width: 60px;
+  }
+
+  /* ปรับการแสดงผลของ mode select */
+  .mode-select {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .mode-select label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* ปรับขนาดของ setting groups ให้เหมาะสม */
+  .setting-group:first-child,
+  .setting-group:nth-child(2) {
+    grid-column: auto / span 1;
+  }
+
+  /* ปรับ margin และ padding */
+  .setting-group {
+    padding: 12px;
+  }
+
+  .setting-row {
+    margin-bottom: 8px;
+  }
+
+  /* ปรับการแสดงผลของ input ในแต่ละ row */
+  .setting-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .setting-row label {
+    margin: 0;
+  }
+
+  /* ปรับขนาดหัวข้อ */
+  .scroll-popup#autoForgePopup h3 {
+    font-size: 1.2rem;
+    margin: 10px 0;
+  }
+
+  
+}
+
+/* ปรับ popup auto forge สำหรับหน้าจอที่เตี้ยกว่า 500px */
+@media screen and (max-height: 500px) {
+  .scroll-popup#autoForgePopup {
+    width: 90vw;
+    max-width: 900px;
+    padding: 15px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* เปลี่ยนเป็น 3 คอลัมน์ */
+    gap: 10px;
+    max-height: 85vh;
+  }
+
+  /* จัดการส่วนหัว */
+  .scroll-popup#autoForgePopup .scroll-icon,
+  .scroll-popup#autoForgePopup h3 {
+    grid-column: 1 / -1;
+    text-align: center;
+    margin: 5px 0;
+  }
+
+  .scroll-popup#autoForgePopup h3 {
+    font-size: 1rem;
+  }
+
+  /* จัดการ settings */
+  .auto-forge-settings {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  /* ปรับขนาดและการจัดวาง setting groups */
+  .auto-forge-settings .setting-group {
+    margin: 0;
+    padding: 8px;
+  }
+
+  /* ปรับขนาดตัวอักษร */
+  .setting-group label,
+  .mode-select label,
+  .scroll-select label {
+    font-size: 0.8rem;
+    padding: 4px;
+  }
+
+  /* ปรับขนาด input */
+  .setting-group input[type="number"] {
+    padding: 2px 4px;
+    font-size: 0.8rem;
+    width: 50px;
+  }
+
+  /* จัดการ footer */
+  .auto-forge-popup-footer {
+    grid-column: 1 / -1;
+    margin-top: 10px;
+    padding-top: 10px;
+  }
+
+  /* ปรับขนาดปุ่ม */
+  .auto-forge-popup-footer button {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    min-width: 100px;
+  }
+
+  /* จัดการ scroll select */
+  .scroll-select {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;
+  }
+
+  /* ปรับขนาด checkbox และ radio */
+  .setting-row input[type="checkbox"],
+  .setting-row input[type="radio"] {
+    width: 14px;
+    height: 14px;
+  }
+
+  /* ปรับขนาด input เล็ก */
+  .setting-row input[type="number"].small-input {
+    width: 45px;
+  }
+
+  /* ปรับการแสดงผลของ mode select */
+  .mode-select {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  .mode-select label {
+    font-size: 0.8rem;
+    white-space: nowrap;
+  }
+
+  /* ปรับ margin และ padding */
+  .setting-group {
+    padding: 8px;
+  }
+
+  .setting-row {
+    margin-bottom: 5px;
+  }
+
+  /* ปรับการแสดงผลของ input ในแต่ละ row */
+  .setting-row {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  /* ปรับการแสดงผลของ scroll select */
+  .scroll-select label {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+  }
+
+  /* ปรับขนาดของ icon */
+  .scroll-popup#autoForgePopup .scroll-icon i {
+    font-size: 1.2rem;
+  }
+
+  /* ปรับ layout เฉพาะสำหรับแต่ละ setting group */
+  .setting-group:first-child {
+    grid-column: 1 / 2;
+  }
+
+  .setting-group:nth-child(2) {
+    grid-column: 2 / 3;
+  }
+
+  .setting-group:nth-child(3) {
+    grid-column: 3 / 4;
+  }
+
+  .setting-group:nth-child(4) {
+    grid-column: 1 / -1;
+  }
+
+  /* ปรับการแสดงผลของ scroll options */
+  .scroll-select {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+
+  /* เพิ่มความกระชับให้กับ input groups */
+  .setting-row input[type="number"] {
+    margin-left: auto;
+  }
+
+  /* ปรับ alignment ของ text */
+  .setting-group label {
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  /* ทำให้ปุ่มในส่วน footer อยู่ชิดขอบด้านล่าง */
+  .auto-forge-popup-footer {
+    position: sticky;
+    bottom: 0;
+    background: #2a3142;
+    padding: 8px 0;
+    margin-top: 5px;
+  }
+
+  /* ปรับขนาดของ container หลัก */
+  .auto-forge-settings {
+    margin: 0;
+    padding: 0;
+  }
+
+  .scroll-popup#autoForgePopup {
+    display: none; /* เพิ่มบรรทัดนี้เพื่อซ่อน popup เริ่มต้น */
+    opacity: 0;
+    transform: scale(0.9);
+    transition: all 0.3s ease;
+  }
+
+  .scroll-popup#autoForgePopup.show {
+    display: block; /* แสดงเมื่อมี class show */
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  @media screen and (max-height: 600px) {
+    .scroll-popup#autoForgePopup {
+      display: none; /* ยังคงซ่อนในเริ่มต้น */
+      width: 80vw;
+      max-width: 800px;
+      /* ... existing code ... */
+    }
+
+    .scroll-popup#autoForgePopup.show {
+      display: grid; /* เปลี่ยนเป็น grid เมื่อแสดง */
+    }
+    
+    /* ... existing code ... */
+  }
+}
+
+/* เพิ่ม CSS สำหรับควบคุมการแสดง/ซ่อน popup */
+.scroll-popup#autoForgePopup {
+  display: none; /* ย้าย display: none มาไว้นอก media query */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.scroll-popup#autoForgePopup.show {
+  display: grid;
+  opacity: 1;
+  visibility: visible;
+}
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <script src="starforce.js"></script>
@@ -1189,7 +2792,11 @@
           <div class="coin-icon"></div>
           5,000
         </div>
-        <button>ตีวก</button>
+        <button>ตีบวก</button>
+        <button class="auto-forge-btn with-text" onclick="showAutoForgePopup()">
+          <i class="fas fa-cog"></i>
+          <span>Auto Forge Setting</span>
+        </button>
       </div>
     </div>
   </div>
@@ -1298,6 +2905,89 @@
       <button onclick="applyMesoDiscount()">ยืนยัน</button>
     </div>
   </div>
+
+  <div class="scroll-popup" id="autoForgePopup">
+    <div class="scroll-icon">
+      <i class="fas fa-cog"></i>
+    </div>
+    <h3>Auto Forge Setting</h3>
+    
+    <div class="auto-forge-settings">
+      <div class="setting-group">
+        <div class="setting-row">
+          <label>
+            <input type="checkbox" id="skipAnimation">
+            <span>Skip Animation</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="setting-group">
+        <div class="setting-row">
+          <label>เป้าหมาย Star Force</label>
+          <input type="number" id="targetSFInput" min="1" max="30" value="10">
+        </div>
+      </div>
+      
+      <div class="setting-group">
+        <div class="setting-row">
+          <label>โหมดการตีบวก</label>
+          <div class="mode-select">
+            <label>
+              <input type="radio" name="forgeMode" value="target" checked>
+              ตีจนถึงเป้าหมาย
+            </label>
+            <label>
+              <input type="radio" name="forgeMode" value="count">
+              ตีตามจำนวนครั้ง
+              <input type="number" id="forgeCountInput" min="1" placeholder="จำนวน" disabled>
+            </label>
+          </div>
+        </div>
+      </div>
+      
+      <div class="setting-group">
+        <div class="setting-row">
+          <label>Scroll ที่จะใช้</label>
+          <div class="scroll-select">
+            <label>
+              <input type="checkbox" id="autoLuckyDay">
+              Lucky Day
+              <input type="number" id="autoLuckyDayValue" min="1" max="100" placeholder="%" class="small-input" disabled>
+            </label>
+            <label>
+              <input type="checkbox" id="autoShield">
+              Shield Scroll
+            </label>
+            <label>
+              <input type="checkbox" id="autoWard">
+              Shielding Ward
+            </label>
+            <label>
+              <input type="checkbox" id="autoMesoDiscount">
+              Meso Discount
+              <input type="number" id="autoMesoDiscountValue" min="0" placeholder="Amount" class="small-input" disabled>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="auto-forge-popup-footer">
+      <div class="buttons">
+        <button class="cancel" onclick="closeScrollPopup('autoForgePopup')">
+          <i class="fas fa-times"></i> ยกเลิก
+        </button>
+        <button class="start" onclick="startAutoForge()">
+          <i class="fas fa-play"></i> เริ่มต้น
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <button class="refresh-btn" onclick="refreshPage()">
+    <i class="fas fa-sync-alt"></i>
+  </button>
 
   <script>
   const forgeBtn = document.querySelector('button');
@@ -1466,13 +3156,13 @@
     
     // แสดง forge animation
     showForgeAnimation().then(() => {
-      // หลังจาก animation เสร็จ แสดงผลลัพธ์
+      // หลังจาก animation เสร็จ แสดงผลลัพธ������������
       showResultPopup(result);
       
       // อัพเดทสถานะ
       updateGameState(result);
       
-      // บันทึกประวัติลง localStorage
+      // บันทึ��ประวั��ิลง localStorage
       saveHistory();
     });
   }
@@ -1491,12 +3181,12 @@
         setTimeout(() => {
           forgeAnimation.style.opacity = '0';
           
-          // รอให้ fade out เสร็จก่อนซ่อน
+          // รอให้ fade out เสร็จก่อนซ��อน
           setTimeout(() => {
             forgeAnimation.style.display = 'none';
             resolve();
-          }, 300);
-        }, 1000);
+          }, 2000);
+        }, 200);
       });
     });
   }
@@ -1649,7 +3339,7 @@
     }
     
     return {
-      targetWidth: Math.max(10, targetWidth), // ไม่ให้น้อยกว่า 10%
+      targetWidth: Math.max(10, targetWidth), // ไม่ให้น้อ��กว่า 10%
       speed: speed
     };
   }
@@ -1769,7 +3459,7 @@
     const starCenter = starRect.left + (starRect.width / 2);
     const success = starCenter >= targetRect.left && starCenter <= targetRect.right;
     
-    // ส่อน Star Catch popup
+    // ส่��น Star Catch popup
     starCatchPopup.style.display = 'none';
     
     if (success) {
@@ -1788,8 +3478,8 @@
           
           setTimeout(() => {
             successPopup.style.display = 'none';
-            // ตั้งค่า bonus และดำเนินการ forge
-            starforce.starCatchBonus = true; // เปลี่ยเป็น true เมื่อำเร็จ
+            // ตั้งค่า bonus และดำเนินก���ร forge
+            starforce.starCatchBonus = true; // เปลี่ยเป็น true เมื��อำเร็จ
             proceedWithForge();
           }, 300);
         }, 1000);
@@ -1872,7 +3562,7 @@
     updateStatsDisplay();
   }
 
-  // เพิ่มฟังก์ชันแสดงผลสถิติ
+  // เพิ��มฟังก์ชันแสดงผลสถิติ
   function updateStatsDisplay() {
     document.querySelector('.stat-item.total .stat-value').textContent = forgeStats.total;
     document.querySelector('.stat-item.success .stat-value').textContent = forgeStats.success;
@@ -1912,7 +3602,7 @@
     }
   }
 
-  // แก้ไขฟังก์ชัน clearHistory
+  // แก้��ขฟัง��์ชัน clearHistory
   function clearHistory() {
     if (confirm('ต้องการเคลียร์ประวัติการตีบวกทั้งหมดหรือไม่?')) {
       forgeHistory = [];
@@ -2006,6 +3696,7 @@
         break;
     }
   }
+  
 
   function resetScroll(type) {
     switch(type) {
@@ -2030,7 +3721,7 @@
   // แก้ไข Event Listeners สำหรับ scroll items
   document.querySelectorAll('.scroll-item').forEach((item, index) => {
     item.addEventListener('click', () => {
-      // ถ้าคลิกที่ scroll ที่ active อยู่แล้ว ให้รีเซ็ต
+      // ถ้าคลิก���ี่ scroll ที่ active อยู่แล้ว ให้รีเซ็ต
       if (item.classList.contains('active')) {
         switch(index) {
           case 0:
@@ -2121,6 +3812,214 @@
       minute: '2-digit',
       second: '2-digit'
     });
+  }
+
+  let autoForgeConfig = {
+    targetSF: 10,
+    mode: 'target',
+    count: 0,
+    currentCount: 0,
+    isRunning: false,
+    skipAnimation: false,
+    scrolls: {
+      luckyDay: { active: false, value: 0 },
+      shield: false,
+      ward: false,
+      mesoDiscount: { active: false, value: 0 }
+    }
+  };
+
+  function showAutoForgePopup() {
+    document.getElementById('autoForgePopup').classList.add('show');
+    overlay.style.display = 'flex';
+  }
+
+  // Event listeners for scroll checkboxes
+  document.getElementById('autoLuckyDay').onchange = function() {
+    document.getElementById('autoLuckyDayValue').disabled = !this.checked;
+  };
+
+  document.getElementById('autoMesoDiscount').onchange = function() {
+    document.getElementById('autoMesoDiscountValue').disabled = !this.checked;
+  };
+
+  // Event listeners for forge mode
+  document.querySelectorAll('input[name="forgeMode"]').forEach(radio => {
+    radio.onchange = function() {
+      document.getElementById('forgeCountInput').disabled = this.value !== 'count';
+    };
+  });
+
+  function startAutoForge() {
+    // Get settings from inputs
+    autoForgeConfig.targetSF = parseInt(document.getElementById('targetSFInput').value);
+    autoForgeConfig.mode = document.querySelector('input[name="forgeMode"]:checked').value;
+    autoForgeConfig.count = autoForgeConfig.mode === 'count' ? 
+      parseInt(document.getElementById('forgeCountInput').value) : 0;
+    autoForgeConfig.currentCount = 0;
+    autoForgeConfig.skipAnimation = document.getElementById('skipAnimation').checked;
+    autoForgeConfig.batchSize = 5; // จำนวนครั้งต่อรอบ
+    autoForgeConfig.batchDelay = 100; // delay ระหว่างรอบ (ms)
+    
+    // Get scroll settings
+    autoForgeConfig.scrolls = {
+      luckyDay: {
+        active: document.getElementById('autoLuckyDay').checked,
+        value: parseInt(document.getElementById('autoLuckyDayValue').value) || 0
+      },
+      shield: document.getElementById('autoShield').checked,
+      ward: document.getElementById('autoWard').checked,
+      mesoDiscount: {
+        active: document.getElementById('autoMesoDiscount').checked,
+        value: parseInt(document.getElementById('autoMesoDiscountValue').value) || 0
+      }
+    };
+
+    // Apply scroll settings
+    if (autoForgeConfig.scrolls.luckyDay.active) {
+      starforce.luckyDayBonus = autoForgeConfig.scrolls.luckyDay.value;
+    }
+    if (autoForgeConfig.scrolls.shield) {
+      starforce.shieldScrollActive = true;
+    }
+    if (autoForgeConfig.scrolls.ward) {
+      starforce.shieldingWardActive = true;
+    }
+    if (autoForgeConfig.scrolls.mesoDiscount.active) {
+      starforce.mesoDiscountAmount = autoForgeConfig.scrolls.mesoDiscount.value;
+    }
+
+    // Update UI
+    updateScrollUI('luckyDay');
+    updateScrollUI('shield');
+    updateScrollUI('ward');
+    updateScrollUI('mesoDiscount');
+    updateStats(currentSF);
+    updateCost(currentSF);
+
+    // Start auto forge
+    autoForgeConfig.isRunning = true;
+    closeScrollPopup('autoForgePopup');
+    continueAutoForge();
+  }
+
+  function continueAutoForge() {
+    if (!autoForgeConfig.isRunning) return;
+
+    // Check if should stop
+    if (autoForgeConfig.mode === 'target' && currentSF >= autoForgeConfig.targetSF) {
+      autoForgeConfig.isRunning = false;
+      return;
+    }
+    if (autoForgeConfig.mode === 'count' && autoForgeConfig.currentCount >= autoForgeConfig.count) {
+      autoForgeConfig.isRunning = false;
+      return;
+    }
+
+    // แยกการทำงานระหว่าง skip animation และ show animation
+    if (autoForgeConfig.skipAnimation) {
+      // ทำงานเป็นชุด (batch) เมื่อ skip animation
+      let batchCount = 0;
+      const processBatch = () => {
+        while (batchCount < autoForgeConfig.batchSize && autoForgeConfig.isRunning) {
+          // Check stop conditions again
+          if (autoForgeConfig.mode === 'target' && currentSF >= autoForgeConfig.targetSF) {
+            autoForgeConfig.isRunning = false;
+            break;
+          }
+          if (autoForgeConfig.mode === 'count' && autoForgeConfig.currentCount >= autoForgeConfig.count) {
+            autoForgeConfig.isRunning = false;
+            break;
+          }
+
+          autoForgeConfig.currentCount++;
+          batchCount++;
+
+          // Skip Star Catch in auto mode for better performance
+          starforce.starCatchBonus = false;
+          proceedWithForge();
+        }
+
+        // ถ้ายังไม่จบและยังทำงานอยู่ ให้ทำชุดถัดไปหลัง delay
+        if (autoForgeConfig.isRunning) {
+          setTimeout(() => {
+            batchCount = 0;
+            processBatch();
+          }, autoForgeConfig.batchDelay);
+        }
+      };
+
+      processBatch();
+    } else {
+      // ทำทีละครั้งและรอ animation เมื่อไม่ skip animation
+      autoForgeConfig.currentCount++;
+      starforce.starCatchBonus = false;
+      proceedWithForge();
+    }
+  }
+
+  function proceedWithForge() {
+    const result = starforce.calculateResult(currentSF);
+    addHistory(result);
+    
+    if (autoForgeConfig.isRunning && autoForgeConfig.skipAnimation) {
+      if (!result.broken) {
+        currentSF = result.newSF;
+        starBadge.textContent = currentSF;
+        updateStats(currentSF);
+        updateUpgradeArrow(currentSF);
+        updateCost(currentSF);
+      }
+      starforce.starCatchBonus = false;
+      saveHistory();
+      return;
+    }
+    
+    // แสดง animation ตามปกติ
+    starCatchPopup.style.display = 'none';
+    overlay.style.display = 'flex';
+    forgeAnimation.style.display = 'flex';
+    
+    requestAnimationFrame(() => {
+      forgeAnimation.classList.add('show');
+      
+      setTimeout(() => {
+        forgeAnimation.classList.remove('show');
+        forgeAnimation.style.display = 'none';
+        
+        showResultPopup(result);
+        
+        if (!result.broken) {
+          currentSF = result.newSF;
+          starBadge.textContent = currentSF;
+          updateStats(currentSF);
+          updateUpgradeArrow(currentSF);
+          updateCost(currentSF);
+        }
+        
+        starforce.starCatchBonus = false;
+        saveHistory();
+
+        // Continue auto forge after delay
+        if (autoForgeConfig.isRunning) {
+          // ริด popup อัตโนมัติหลังจาก 1 วินาที
+          setTimeout(() => {
+            closePopup();
+            setTimeout(continueAutoForge, 500);
+          }, 1000);
+        }
+      }, 1000);
+    });
+  }
+
+  function refreshPage() {
+    const btn = document.querySelector('.refresh-btn');
+    btn.classList.add('spinning');
+    
+    // รอให้ animation เล่นจบก่อน refresh
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
   }
   </script>
 </body>
