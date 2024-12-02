@@ -61,15 +61,14 @@ class StarForceSystem {
     this.isTopBottom = !this.isTopBottom;
   }
 
-  calculateResult(currentSF) {
-    const data = this.sfData[currentSF];
-    if (!data) return null;
+  calculateResult(sf) {
+    const data = this.sfData[sf];
+    const totalBonus = (this.starCatchBonus ? 5 : 0) + this.luckyDayBonus;
+    const successRate = data.success + totalBonus;
 
-    let successRate = data.success;
-    if (this.starCatchBonus) {
-      successRate += 5;
+    if (successRate >= 100) {
+      return { success: true, newSF: sf + 1, message: 'สำเร็จ' };
     }
-    successRate += this.luckyDayBonus;
 
     let degradeRate = this.shieldScrollActive ? 0 : data.degrade;
     let breakRate = this.shieldingWardActive ? 0 : data.break;
@@ -90,26 +89,26 @@ class StarForceSystem {
     if (normalizedRandom <= successRate) {
       return {
         success: true,
-        newSF: currentSF + 1,
-        message: 'Enhancement Success'
+        newSF: sf + 1,
+        message: 'เสริมพลังสำเร็จ'
       };
     } else if (normalizedRandom <= successRate + maintainRate) {
       return {
         success: false,
-        newSF: currentSF,
-        message: 'Maintain'
+        newSF: sf,
+        message: 'คงสภาพเดิม'
       };
     } else if (normalizedRandom <= successRate + maintainRate + degradeRate) {
       return {
         success: false,
-        newSF: currentSF - 1,
-        message: 'Degrade'
+        newSF: sf - 1,
+        message: 'ลดระดับ'
       };
     } else {
       return {
         success: false,
-        newSF: currentSF,
-        message: 'Break',
+        newSF: sf,
+        message: 'อุปกรณ์แตกหัก',
         broken: true
       };
     }
